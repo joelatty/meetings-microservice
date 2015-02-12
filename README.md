@@ -1,4 +1,4 @@
 rtc-meetings
 ============
 
-Using SparkJava and Java 8 for web requests and mongoDB for the persisted data
+This is a prototype micro service with the intention of being capable of persisting (Generic) Meeting locations by longitude and latitude coords.
