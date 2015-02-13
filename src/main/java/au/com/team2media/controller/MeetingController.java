@@ -2,15 +2,7 @@ package au.com.team2media.controller;
 
 
 import au.com.team2media.service.MeetingService;
-
 import com.google.common.collect.Maps;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.MongoClient;
-import spark.Request;
-import spark.Response;
-import spark.Route;
 
 import java.util.Map;
 
@@ -29,18 +21,18 @@ public class MeetingController {
         get("/", (request, response) -> getMapResponse(), json());
 
         get("/meetings",
-            (request, response) ->  {
-              try {
-                return meetingService.getAllMeetings();
-              } catch (Exception e) {
-                  halt(500);
-              }
-              return null;
+                (request, response) -> {
+                    try {
+                        return meetingService.getAllMeetings();
+                    } catch (Exception e) {
+                        halt(500);
+                    }
+                    return null;
 
-            }, cursorToJson());
+                }, cursorToJson());
 
         get("/meetings/:suburb", (request, response) -> {
-            try{
+            try {
                 return meetingService.getMeetingsBySuburb(request.params(":suburb"));
             } catch (Exception e) {
                 halt(500);
