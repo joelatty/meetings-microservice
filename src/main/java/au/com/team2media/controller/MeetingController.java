@@ -1,13 +1,18 @@
 package au.com.team2media.controller;
 
 
+import au.com.team2media.au.com.team2media.error.ResponseError;
 import au.com.team2media.service.MeetingService;
 import com.google.common.collect.Maps;
+import com.mongodb.DBCursor;
 
 import java.util.Map;
 
 import static au.com.team2media.util.CursorToJSONUtil.cursorToJson;
+import static au.com.team2media.util.CursorToJSONUtil.toJson;
 import static au.com.team2media.util.JsonUtil.json;
+import static au.com.team2media.util.JsonUtil.toJsonFromGson;
+import static spark.Spark.exception;
 import static spark.Spark.get;
 import static spark.Spark.halt;
 
@@ -33,13 +38,21 @@ public class MeetingController {
 
         get("/meetings/:suburb", (request, response) -> {
             try {
-                return meetingService.getMeetingsBySuburb(request.params(":suburb"));
+                DBCursor cursor = meetingService.getMeetingsBySuburb(request.params(":suburb"));
+                if(cursor != null) {
+                    return cursor;
+                } else {
+                    return new ResponseError("No meetings found for suburb: " + request.params(":suburb"));
+                }
             } catch (Exception e) {
-                halt(500);
+                return new ResponseError(e.getMessage());
             }
-
-            return null;
         }, cursorToJson());
+
+        exception(IllegalArgumentException.class, (exception, request, response) -> {
+            response.status(400);
+            response.body(toJsonFromGson(new ResponseError(exception)));
+        });
     }
 
     private Map<String, String> getMapResponse() {
