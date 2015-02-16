@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/au/com/team2media/util/DayOfWeekTypeAdapter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/au/com/team2media/au/com/team2media/error/ResponseError.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/au/com/team2media/util/CursorToJSONUtil.java" afterPath="$PROJECT_DIR$/src/main/java/au/com/team2media/util/CursorToJSONUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/au/com/team2media/util/JsonUtil.java" afterPath="$PROJECT_DIR$/src/main/java/au/com/team2media/util/JsonUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/au/com/team2media/model/Meeting.java" afterPath="$PROJECT_DIR$/src/main/java/au/com/team2media/model/Meeting.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/au/com/team2media/util/DayOfWeekUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/au/com/team2media/controller/MeetingController.java" afterPath="$PROJECT_DIR$/src/main/java/au/com/team2media/controller/MeetingController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java" afterPath="$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/au/com/team2media/service/MeetingService.java" afterPath="$PROJECT_DIR$/src/main/java/au/com/team2media/service/MeetingService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/au/com/team2media/service/MeetingsTest.java" afterPath="$PROJECT_DIR$/src/test/java/au/com/team2media/service/MeetingsTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -18,7 +15,7 @@
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path=".idea/dataSources.local.xml" />
     <file path="/a.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1423804689104" ignored="false" />
-    <file path="/fragment.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424049707444" ignored="false" />
+    <file path="/fragment.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424063539223" ignored="false" />
     <file path="/*.regexp" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1420518784753" ignored="false" />
     <file path="C:/development/iip-apps/ctp/war/src/main/webapp/javascript/jquery-iagRmsVehicleSearch.js" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1420509412121" ignored="false" />
     <file path="C:/development/iip-apps/ctp/war/src/main/webapp/WEB-INF/jsp/vehicleDetails1.jsp" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1420509439692" ignored="false" />
@@ -28,14 +25,15 @@
     <file path="db-console:/8b26e767/69ceaa36-0586-49dd-bc88-23f7b80f7459/" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1420513427720" ignored="false" />
     <file path="/Dummy.txt" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424048494885" ignored="false" />
     <file path="/CursorToJSONUtil.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1420521695868" ignored="false" />
-    <file path="/MeetingService.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1423806286710" ignored="false" />
-    <file path="/MeetingController.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424043664653" ignored="false" />
+    <file path="/MeetingService.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424061104241" ignored="false" />
+    <file path="/MeetingController.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424061979963" ignored="false" />
     <file path="/MeetingsTest.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424040905582" ignored="false" />
-    <file path="/a.dummy" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1423806309012" ignored="false" />
-    <file path="/MeetingControllerTest.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424058471822" ignored="false" />
+    <file path="/a.dummy" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424063671827" ignored="false" />
+    <file path="/MeetingControllerTest.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424063842250" ignored="false" />
     <file path="/JsonUtil.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424043710053" ignored="false" />
     <file path="/Meeting.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424055201056" ignored="false" />
     <file path="/DayOfWeekTypeAdapter.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424058645938" ignored="false" />
+    <file path="/DayOfWeekUtil.java" changelist="96e805cc-712c-411a-9b07-2ccfc9a7c1c2" time="1424061891060" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +50,7 @@
   <component name="DebuggerManager">
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java" line="67" class="au.com.team2media.controller.MeetingControllerTest" package="au.com.team2media.controller">
+      <breakpoint url="file://$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java" line="62" class="au.com.team2media.controller.MeetingControllerTest" package="au.com.team2media.controller">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -67,7 +65,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java" line="87" class="au.com.team2media.controller.MeetingControllerTest.TestResponse" package="au.com.team2media.controller">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/DayOfWeekUtil.java" line="17" class="au.com.team2media.util.DayOfWeekUtil" package="au.com.team2media.util">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -82,52 +80,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java" line="55" class="au.com.team2media.controller.MeetingControllerTest" package="au.com.team2media.controller">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/au/com/team2media/model/Meeting.java" line="28" class="au.com.team2media.model.Meeting" package="au.com.team2media.model">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/au/com/team2media/model/Meeting.java" line="36" class="au.com.team2media.model.Meeting" package="au.com.team2media.model">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/au/com/team2media/model/Meeting.java" line="64" class="au.com.team2media.model.Meeting" package="au.com.team2media.model">
+      <breakpoint url="file://$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java" line="71" class="au.com.team2media.controller.MeetingControllerTest" package="au.com.team2media.controller">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -158,8 +111,8 @@
         <option name="CONDITION_ENABLED" value="true" />
         <option name="CLASS_FILTERS_ENABLED" value="false" />
         <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
+        <option name="CONDITION" value="&#13;&#13;JAVA" />
+        <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
       </breakpoint>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -175,8 +128,8 @@
         <option name="CONDITION_ENABLED" value="true" />
         <option name="CLASS_FILTERS_ENABLED" value="false" />
         <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
+        <option name="CONDITION" value="&#13;&#13;JAVA" />
+        <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
       </breakpoint>
     </breakpoint_any>
     <breakpoint_rules />
@@ -188,37 +141,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CursorToJSONUtil.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/CursorToJSONUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="25" selection-start="156" selection-end="156" vertical-scroll-proportion="0.0">
+            <state line="11" column="38" selection-start="264" selection-end="264" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ResponseError.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/au/com/team2media/error/ResponseError.java">
+      <file leaf-file-name="Meetings.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/Meetings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JsonUtil.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/JsonUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="39" selection-start="338" selection-end="352" vertical-scroll-proportion="0.0">
+            <state line="13" column="43" selection-start="351" selection-end="351" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -227,7 +162,7 @@
       <file leaf-file-name="MeetingControllerTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="0" selection-start="1445" selection-end="1445" vertical-scroll-proportion="0.0">
+            <state line="71" column="53" selection-start="2050" selection-end="2050" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -235,10 +170,39 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="DayOfWeekUtil.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/DayOfWeekUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="41" selection-start="507" selection-end="507" vertical-scroll-proportion="0.5678497">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsonUtil.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/JsonUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="42" selection-start="304" selection-end="308" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MeetingController.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/controller/MeetingController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="48" selection-start="913" selection-end="945" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="DayOfWeekTypeAdapter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/DayOfWeekTypeAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="70" selection-start="947" selection-end="947" vertical-scroll-proportion="0.0">
+            <state line="22" column="25" selection-start="606" selection-end="606" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -249,11 +213,8 @@
       <file leaf-file-name="DayOfWeek.java" pinned="false" current="false" current-in-tab="false">
         <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_25/src.zip!/java/time/DayOfWeek.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="225" column="32" selection-start="8238" selection-end="8252" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#0#18641#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-              </folding>
+            <state line="219" column="79" selection-start="8018" selection-end="8018" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -261,26 +222,19 @@
       <file leaf-file-name="MeetingService.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/service/MeetingService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="40" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0">
+            <state line="14" column="16" selection-start="283" selection-end="283" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MeetingTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/au/com/team2media/model/MeetingTest.java">
+      <file leaf-file-name="MeetingsTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/au/com/team2media/service/MeetingsTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="30" selection-start="215" selection-end="215" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Meeting.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/model/Meeting.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="13" selection-start="114" selection-end="114" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="8" column="0" selection-start="169" selection-end="169" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -304,15 +258,16 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/test/java/au/com/team2media/model/MeetingTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/au/com/team2media/service/MeetingService.java" />
-        <option value="$PROJECT_DIR$/src/test/java/au/com/team2media/service/MeetingsTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/au/com/team2media/au/com/team2media/error/ResponseError.java" />
         <option value="$PROJECT_DIR$/src/main/java/au/com/team2media/util/CursorToJSONUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/au/com/team2media/util/JsonUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/au/com/team2media/controller/MeetingController.java" />
         <option value="$PROJECT_DIR$/src/main/java/au/com/team2media/model/Meeting.java" />
-        <option value="$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/au/com/team2media/util/DayOfWeekTypeAdapter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/au/com/team2media/service/MeetingService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/au/com/team2media/controller/MeetingController.java" />
+        <option value="$PROJECT_DIR$/src/test/java/au/com/team2media/service/MeetingsTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/au/com/team2media/util/DayOfWeekUtil.java" />
       </list>
     </option>
   </component>
@@ -341,9 +296,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="41" />
-    <option name="y" value="156" />
+    <option name="y" value="37" />
     <option name="width" value="1604" />
-    <option name="height" value="851" />
+    <option name="height" value="970" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -805,7 +760,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
   </component>
-  <component name="RunManager" selected="JUnit.MeetingControllerTest">
+  <component name="RunManager" selected="Application.Meetings">
     <configuration default="false" name="Meetings" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -892,6 +847,72 @@
         <option name="LOCAL" value="true" />
       </RunnerSettings>
       <ConfigurationWrapper RunnerId="Debug" />
+      <method />
+    </configuration>
+    <configuration default="false" name="MeetingControllerTest.getDaysOfWeek" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="au.com.team2media.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="rtc" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="au.com.team2media.controller" />
+      <option name="MAIN_CLASS_NAME" value="au.com.team2media.controller.MeetingControllerTest" />
+      <option name="METHOD_NAME" value="getDaysOfWeek" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
+      <method />
+    </configuration>
+    <configuration default="false" name="MeetingControllerTest.getDaysOfWeekAsJson" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="au.com.team2media.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="rtc" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="au.com.team2media.controller" />
+      <option name="MAIN_CLASS_NAME" value="au.com.team2media.controller.MeetingControllerTest" />
+      <option name="METHOD_NAME" value="getDaysOfWeekAsJson" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
@@ -1114,16 +1135,20 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <method />
     </configuration>
-    <list size="3">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Meetings" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.MeetingsTest" />
       <item index="2" class="java.lang.String" itemvalue="JUnit.MeetingControllerTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.MeetingControllerTest.getDaysOfWeek" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.MeetingControllerTest.getDaysOfWeekAsJson" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.MeetingControllerTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.MeetingsTest" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Meetings" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Application.Meetings" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.MeetingControllerTest.getDaysOfWeekAsJson" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.MeetingControllerTest.getDaysOfWeek" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.MeetingControllerTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.MeetingsTest" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -1163,8 +1188,8 @@
     <option name="totallyTimeSpent" value="9658000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="41" y="156" width="1604" height="851" extended-state="0" />
-    <editor active="true" />
+    <frame x="41" y="37" width="1604" height="970" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1172,7 +1197,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973376" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39884394" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3403206" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1182,11 +1207,11 @@
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24967575" sideWeight="0.6734104" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24448767" sideWeight="0.60115606" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24448767" sideWeight="0.67447597" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29896238" sideWeight="0.60115606" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32658958" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29896238" sideWeight="0.67447597" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32552403" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1299,6 +1324,9 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
       <option name="time" value="3" />
     </breakpoint-manager>
   </component>
@@ -1307,53 +1335,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/jetty-server/9.0.2.v20130417/jetty-server-9.0.2.v20130417.jar!/org/eclipse/jetty/server/session/SessionHandler.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/au/com/team2media/service/MeetingsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="14" selection-start="895" selection-end="895" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/Meetings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="52" selection-start="316" selection-end="360" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/au/com/team2media/error/ResponseError.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="0" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/CursorToJSONUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="25" selection-start="156" selection-end="156" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/service/MeetingService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="40" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/controller/MeetingController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="29" selection-start="1658" selection-end="1658" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1370,13 +1354,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/model/Meeting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="114" selection-end="114" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.8.1/junit-4.8.1.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="40" selection-start="388" selection-end="388" vertical-scroll-proportion="-6.8">
@@ -1384,45 +1361,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_25/src.zip!/java/time/DayOfWeek.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="225" column="32" selection-start="8238" selection-end="8252" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#18641#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/JsonUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/model/Meeting.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="39" selection-start="338" selection-end="352" vertical-scroll-proportion="0.0">
+        <state line="7" column="13" selection-start="114" selection-end="114" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_25/src.zip!/java/time/DayOfWeek.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="219" column="79" selection-start="8018" selection-end="8018" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/DayOfWeekTypeAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="70" selection-start="947" selection-end="947" vertical-scroll-proportion="0.0">
+        <state line="22" column="25" selection-start="606" selection-end="606" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/JsonUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="42" selection-start="304" selection-end="308" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/au/com/team2media/service/MeetingsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="169" selection-end="169" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/service/MeetingService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="16" selection-start="283" selection-end="283" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/controller/MeetingController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="48" selection-start="913" selection-end="945" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/Meetings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="43" selection-start="351" selection-end="351" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/CursorToJSONUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="38" selection-start="264" selection-end="264" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/au/com/team2media/controller/MeetingControllerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="0" selection-start="1445" selection-end="1445" vertical-scroll-proportion="0.0">
+        <state line="71" column="53" selection-start="2050" selection-end="2050" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/au/com/team2media/util/DayOfWeekUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="16" column="41" selection-start="507" selection-end="507" vertical-scroll-proportion="0.5678497">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

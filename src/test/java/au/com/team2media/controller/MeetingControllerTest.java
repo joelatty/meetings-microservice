@@ -4,6 +4,7 @@ import au.com.team2media.Meetings;
 import au.com.team2media.model.Meeting;
 import au.com.team2media.service.MeetingService;
 import au.com.team2media.util.DayOfWeekTypeAdapter;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -24,9 +25,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -56,6 +55,21 @@ public class MeetingControllerTest {
         assertNotNull(meetings);
         // assertEquals("Newtown", json.get("suburb"));
         //assertEquals("Bedford Steps", json.get("name"));
+    }
+
+    @Test
+    public void getDaysOfWeek() {
+        TestResponse res = request("GET", "/daysOfTheWeek");
+        assertNotNull(res);
+    }
+
+    @Test
+    public void getDaysOfWeekAsJson() {
+        Type collectionType = new TypeToken<Collection<Meeting>>(){}.getType();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
+        Gson gson = gsonBuilder.create();
+        assertNotNull(gson.toJson(DayOfWeek.values()));
     }
 
     private TestResponse request(String method, String path) {

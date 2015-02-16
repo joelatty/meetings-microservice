@@ -3,6 +3,7 @@ package au.com.team2media.controller;
 
 import au.com.team2media.au.com.team2media.error.ResponseError;
 import au.com.team2media.service.MeetingService;
+import au.com.team2media.util.DayOfWeekUtil;
 import com.google.common.collect.Maps;
 import com.mongodb.DBCursor;
 
@@ -24,6 +25,10 @@ public class MeetingController {
     public MeetingController(final MeetingService meetingService) {
 
         get("/", (request, response) -> getMapResponse(), json());
+
+        get("/daysOfTheWeek", (request, response) ->
+                DayOfWeekUtil.getDaysOfTheWeek(),
+                json());
 
         get("/meetings",
                 (request, response) -> {

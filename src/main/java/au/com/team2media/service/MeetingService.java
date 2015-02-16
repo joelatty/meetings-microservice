@@ -4,6 +4,7 @@ import au.com.team2media.model.Meeting;
 import com.mongodb.*;
 
 import java.net.UnknownHostException;
+import java.time.DayOfWeek;
 
 /**
  * Created by joe on 3/01/15.
@@ -11,6 +12,7 @@ import java.net.UnknownHostException;
 public class MeetingService {
 
     private MongoClient client;
+    private DayOfWeek dayOfWeek;
 
     public MeetingService() {
         init();
