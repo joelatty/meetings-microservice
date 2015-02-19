@@ -1,17 +1,33 @@
 package au.com.team2media.model;
 
 import java.time.DayOfWeek;
+import java.util.Date;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by joe on 3/01/15.
  */
 public class Meeting {
+
+    // @NotNull
     String name;
+
+    // @NotNull
     String suburb;
+
+    String type;
+
+    // @NotNull
     DayOfWeek dayOfWeek;
-    String start;
-    String end;
-    String description;
+
+    // @NotNull
+    String startTime;
+
+
+    String endTime;
+
+    Date dateOfBirth;
 
     public String getName() {
         return name;
@@ -25,8 +41,16 @@ public class Meeting {
         return suburb;
     }
 
-    public void setDayOfWeek(String dayOfWeek) {
-        setDayOfWeek(DayOfWeek.valueOf(dayOfWeek));
+    public void setSuburb(String suburb) {
+        this.suburb = suburb;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public DayOfWeek getDayOfWeek() {
@@ -37,31 +61,27 @@ public class Meeting {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public void setSuburb(String suburb) {
-        this.suburb = suburb;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public String getStart() {
-        return start;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public String getEnd() {
-        return end;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

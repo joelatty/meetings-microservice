@@ -1,21 +1,30 @@
 package au.com.team2media.controller;
 
 
-import au.com.team2media.au.com.team2media.error.ResponseError;
+import au.com.team2media.builder.MeetingBuilder;
+import au.com.team2media.error.ResponseError;
+import au.com.team2media.model.Meeting;
 import au.com.team2media.service.MeetingService;
-import au.com.team2media.util.DayOfWeekUtil;
-import com.google.common.collect.Maps;
-import com.mongodb.DBCursor;
 
+import au.com.team2media.util.DayOfWeekUtil;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.gson.Gson;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.MongoClient;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+
+import java.time.DayOfWeek;
 import java.util.Map;
 
 import static au.com.team2media.util.CursorToJSONUtil.cursorToJson;
-import static au.com.team2media.util.CursorToJSONUtil.toJson;
 import static au.com.team2media.util.JsonUtil.json;
-import static au.com.team2media.util.JsonUtil.toJsonFromGson;
-import static spark.Spark.exception;
-import static spark.Spark.get;
-import static spark.Spark.halt;
+import static spark.Spark.*;
 
 /**
  * Created by joe on 3/01/15.
@@ -31,15 +40,15 @@ public class MeetingController {
                 json());
 
         get("/meetings",
-                (request, response) -> {
-                    try {
-                        return meetingService.getAllMeetings();
-                    } catch (Exception e) {
-                        halt(500);
-                    }
-                    return null;
+            (request, response) ->  {
+              try {
+                return meetingService.getAllMeetings();
+              } catch (Exception e) {
+                  halt(500);
+              }
+              return null;
 
-                }, cursorToJson());
+            }, cursorToJson());
 
         get("/meetings/:suburb", (request, response) -> {
             try {
@@ -54,9 +63,31 @@ public class MeetingController {
             }
         }, cursorToJson());
 
-        exception(IllegalArgumentException.class, (exception, request, response) -> {
-            response.status(400);
-            response.body(toJsonFromGson(new ResponseError(exception)));
+        post("/meetings", (request, response) -> {
+
+            DayOfWeek dayOfWeek = null;
+            String dow = request.queryParams("dayOfWeek");
+            if (dow != null && Iterables.contains(Lists.newArrayList(DayOfWeek.values()), dow.toUpperCase())) {
+                dayOfWeek = DayOfWeek.valueOf(dow.toUpperCase());
+            }
+
+
+            Meeting meeting = new MeetingBuilder()
+            .setName(request.queryParams("name"))
+            .setSuburb(request.queryParams("suburb"))
+            .setType(request.queryParams("type"))
+            .setStartTime(request.queryParams("startTime"))
+            .setEndTime(request.queryParams("endTime"))
+            .setDayOfWeek(dayOfWeek)
+            .build();
+
+            return meetingService.createMeeting(meeting);
+
+        }, cursorToJson());
+
+        exception(IllegalArgumentException.class, (e, req, res) -> {
+            res.status(400);
+            res.body(new Gson().toJson(new ResponseError(e)));
         });
     }
 
