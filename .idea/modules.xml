@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/rtc.iml" filepath="$PROJECT_DIR$/rtc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meetings-microservice.iml" filepath="$PROJECT_DIR$/meetings-microservice.iml" />
     </modules>
   </component>
 </project>

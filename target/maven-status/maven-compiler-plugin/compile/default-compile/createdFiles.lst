@@ -1,5 +1,0 @@
-au\com\team2media\util\JsonUtil.class
-au\com\team2media\controller\MeetingController.class
-au\com\team2media\model\Meeting.class
-au\com\team2media\Meetings.class
-au\com\team2media\service\MeetingService.class

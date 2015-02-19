@@ -1,10 +1,6 @@
 
-.idea/compiler.xml
+.idea/*
+.idea/**/*
+*.iml
+*.class
 
-.idea/compiler.xml
-
-.idea/copyright/profiles_settings.xml
-
-.idea/workspace.xml
-
-rtc.iml
