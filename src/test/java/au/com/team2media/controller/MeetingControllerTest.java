@@ -29,10 +29,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -69,31 +66,7 @@ public class MeetingControllerTest {
 
     @Test
     public void testCreateMeeting() throws IOException {
-        Meeting meeting = new MeetingBuilder()
-                .setName("Cliff Hangers")
-                .setSuburb("Bondi North")
-                .setType("General")
-                .setStartTime("10:30AM")
-                .setEndTime("10:30AM")
-                .setDayOfWeek(DayOfWeek.SATURDAY)
-                .build();
-
-//        Type collectionType = new TypeToken<Collection<Meeting>>(){}.getType();
-//        GsonBuilder gsonBuilder = new GsonBuilder();
-//        gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
-//        Gson gson = gsonBuilder.create();
-//        gson.toJson(meeting);
-
-//        StringBuilder query = new StringBuilder("/meetings?");
-//        query.append("name="+meeting.getName()+"&");
-//        query.append("suburb="+meeting.getSuburb()+"&");
-//        query.append("type="+meeting.getType()+"&");
-//        query.append("startTime="+meeting.getStartTime()+"&");
-//        query.append("endTime="+meeting.getEndTime()+"&");
-//        query.append("dayOfWeek="+meeting.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH));
-//
-//        TestResponse response = request("POST", "/meetings?name=Glebe&suburb=Newtown&type=General");
-//        assertEquals(200, response.status);
+        Meeting meeting = getMeeting();
 
         List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
         urlParameters.add(new BasicNameValuePair("name", meeting.getName()));
@@ -134,6 +107,32 @@ public class MeetingControllerTest {
         while ((line = rd.readLine()) != null) {
             System.out.println(line);
         }
+    }
+
+    private Meeting getMeeting() {
+
+        String[] names = {"Cliff Hangers", "Glebe Speaker Meeting", "Bedford Steps", "Newtown Community Centre", "Annandale Boomerangs", "Lewisham Saturday Night"};
+        String[] suburbs = {"Bondi North", "Glebe", "Newtown", "Annandale", "Paddington", "Camperdown", "Darlinghurst"};
+        String[] types = {"General", "Speaker", "Topic", "Just for Today", "Reading", "Steps"};
+        String[] startTimes = {"10:30AM", "7:00PM", "8:00PM", "12:00PM", "7:30PM", "12:30PM"};
+        String[] endTimes = {"11:30AM", "8:30PM", "8:30PM", "1:00PM", "8:30PM", "2:00PM"};
+        DayOfWeek[] daysOfWeek = DayOfWeek.values();
+
+        int times = randInt(0,5);
+        return new MeetingBuilder()
+                    .setName(names[randInt(0,5)])
+                    .setSuburb(suburbs[randInt(0,6)])
+                    .setType(types[randInt(0,5)])
+                    .setStartTime(startTimes[times])
+                    .setEndTime(endTimes[times])
+                    .setDayOfWeek(daysOfWeek[randInt(0,6)])
+                    .build();
+    }
+
+    private int randInt(int min, int max) {
+       Random rand = new Random();
+       int randomNum = rand.nextInt((max - min) + 1) + min;
+       return randomNum;
     }
 
     @Test

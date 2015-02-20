@@ -31,12 +31,14 @@ import static spark.Spark.*;
  */
 public class MeetingController {
 
+    private static final DayOfWeekUtil dayOfWeekUtil = new DayOfWeekUtil();
+
     public MeetingController(final MeetingService meetingService) {
 
         get("/", (request, response) -> getMapResponse(), json());
 
         get("/daysOfTheWeek", (request, response) ->
-                DayOfWeekUtil.getDaysOfTheWeek(),
+                dayOfWeekUtil.getDaysOfTheWeek(),
                 json());
 
         get("/meetings",
@@ -65,20 +67,13 @@ public class MeetingController {
 
         post("/meetings", (request, response) -> {
 
-            DayOfWeek dayOfWeek = null;
-            String dow = request.queryParams("dayOfWeek");
-            if (dow != null && Iterables.contains(Lists.newArrayList(DayOfWeek.values()), dow.toUpperCase())) {
-                dayOfWeek = DayOfWeek.valueOf(dow.toUpperCase());
-            }
-
-
             Meeting meeting = new MeetingBuilder()
             .setName(request.queryParams("name"))
             .setSuburb(request.queryParams("suburb"))
             .setType(request.queryParams("type"))
             .setStartTime(request.queryParams("startTime"))
             .setEndTime(request.queryParams("endTime"))
-            .setDayOfWeek(dayOfWeek)
+            .setDayOfWeek(dayOfWeekUtil.getDayOfWeek(request.queryParams("dayOfWeek")))
             .build();
 
             return meetingService.createMeeting(meeting);
