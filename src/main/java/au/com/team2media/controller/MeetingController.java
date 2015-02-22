@@ -1,23 +1,16 @@
 package au.com.team2media.controller;
 
 
-import au.com.team2media.builder.MeetingBuilder;
 import au.com.team2media.error.ResponseError;
 import au.com.team2media.model.Meeting;
 import au.com.team2media.service.MeetingService;
-
+import au.com.team2media.util.DayOfWeekTypeAdapter;
 import au.com.team2media.util.DayOfWeekUtil;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.mongodb.DBCursor;
-import com.mongodb.MongoClient;
-import spark.Request;
-import spark.Response;
-import spark.Route;
 
 import java.time.DayOfWeek;
 import java.util.Map;
@@ -65,20 +58,20 @@ public class MeetingController {
             }
         }, cursorToJson());
 
-        post("/meetings", (request, response) -> {
+        post("/meetings", "application/json", (request, response) -> {
 
-            Meeting meeting = new MeetingBuilder()
-            .setName(request.queryParams("name"))
-            .setSuburb(request.queryParams("suburb"))
-            .setType(request.queryParams("type"))
-            .setStartTime(request.queryParams("startTime"))
-            .setEndTime(request.queryParams("endTime"))
-            .setDayOfWeek(dayOfWeekUtil.getDayOfWeek(request.queryParams("dayOfWeek")))
-            .build();
-
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
+            Gson gson = gsonBuilder.create();
+            Meeting meeting = gson.fromJson(request.body(), Meeting.class);
             return meetingService.createMeeting(meeting);
 
         }, cursorToJson());
+
+        exception(JsonSyntaxException.class, (e, req, res) -> {
+            res.status(400);
+            res.body(new Gson().toJson(new ResponseError(e)));
+        });
 
         exception(IllegalArgumentException.class, (e, req, res) -> {
             res.status(400);
@@ -91,4 +84,5 @@ public class MeetingController {
         map.put("message", "Your just trying to trick me");
         return map;
     }
+
 }

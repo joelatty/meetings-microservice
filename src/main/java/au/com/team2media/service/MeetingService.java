@@ -1,17 +1,11 @@
 package au.com.team2media.service;
 
 import au.com.team2media.model.Meeting;
-import com.google.common.collect.Lists;
-import com.google.gson.Gson;
 import com.mongodb.*;
-import com.mongodb.util.JSON;
 
 import java.net.UnknownHostException;
 import java.time.format.TextStyle;
-import java.util.List;
 import java.util.Locale;
-
-import static au.com.team2media.util.JsonUtil.json;
 
 /**
  * Created by joe on 3/01/15.
@@ -54,8 +48,7 @@ public class MeetingService {
 
             WriteResult writeResult = collection.insert(meetingDBObject);
 
-            Object object = writeResult.getUpsertedId();
-            return object;
+            return meetingDBObject.get("_id");
         }
 
 

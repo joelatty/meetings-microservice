@@ -1,39 +1,32 @@
 package au.com.team2media.controller;
 
-import au.com.team2media.Meetings;
 import au.com.team2media.builder.MeetingBuilder;
 import au.com.team2media.model.Meeting;
 import au.com.team2media.util.DayOfWeekTypeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.HttpClient;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpParams;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import spark.Spark;
 import spark.utils.IOUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.DayOfWeek;
-import java.time.format.TextStyle;
-import java.util.*;
+import java.util.Collection;
+import java.util.Random;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class MeetingControllerTest {
 
@@ -41,71 +34,58 @@ public class MeetingControllerTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Meetings.main(null);
+//        Meetings.main(null);
     }
 
     @AfterClass
     public static void breakDown() {
-        Spark.stop();
+//        Spark.stop();
     }
 
     @Test
     public void getMeetingsList() {
-        TestResponse res = request("GET", "/meetings/Newtown");
+        TestResponse res = request("/meetings/Newtown");
         Collection<Meeting> meetings = res.json();
         assertNotNull(meetings);
-        // assertEquals("Newtown", json.get("suburb"));
-        //assertEquals("Bedford Steps", json.get("name"));
+        assertTrue(meetings.size() > 0);
+        Meeting meeting = meetings.iterator().next();
+        assertEquals("Newtown", meeting.getSuburb());
+        assertEquals("Newtown Steps", meeting.getName());
     }
 
     @Test
     public void getDaysOfWeek() {
-        TestResponse res = request("GET", "/daysOfTheWeek");
+        TestResponse res = request("/daysOfTheWeek");
         assertNotNull(res);
     }
 
     @Test
-    public void testCreateMeeting() throws IOException {
+    public void testCreateMeeting() {
         Meeting meeting = getMeeting();
 
-        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-        urlParameters.add(new BasicNameValuePair("name", meeting.getName()));
-        urlParameters.add(new BasicNameValuePair("suburb", meeting.getSuburb()));
-        urlParameters.add(new BasicNameValuePair("type", meeting.getType()));
-        urlParameters.add(new BasicNameValuePair("startTime", meeting.getStartTime()));
-        urlParameters.add(new BasicNameValuePair("endTime", meeting.getEndTime()));
-        urlParameters.add(new BasicNameValuePair("dayOfWeek", meeting.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH)));
-
         String url = "http://localhost:4567/meetings";
+        org.apache.http.client.HttpClient client = new DefaultHttpClient();
 
-        HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost(url);
-        post.setHeader("User-Agent", "Mozilla/5.0");
-        post.setHeader("Accept",
-                "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-        post.setHeader("Accept-Language", "en-US,en;q=0.5");
-        post.setHeader("Connection", "keep-alive");
-        post.setHeader("Referer", "https://accounts.google.com/ServiceLoginAuth");
-        post.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        try {
+            HttpPost request = new HttpPost(url);
 
-        post.setEntity(new UrlEncodedFormEntity(urlParameters));
 
-        System.out.println("\nSending 'POST' request to URL : " + url);
-        BufferedReader rq = new BufferedReader(new InputStreamReader(post.getEntity().getContent()));
-        String rqLine = "";
-        while ((rqLine = rq.readLine()) != null) {
-            System.out.println(rqLine);
-        }
+            StringEntity params = new StringEntity("{\"name\":\"Paddington Steps\",\"suburb\":\"Paddington\", \"type\":\"General\"}");
 
-        HttpResponse response = client.execute(post);
+            request.addHeader("content-type", "application/x-www-form-urlencoded");
+            request.setEntity(params);
 
-        System.out.println("Response Code : " +
-                response.getStatusLine().getStatusCode());
+            HttpResponse response = client.execute(request);
 
-        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-            System.out.println(line);
+            String result = IOUtils.toString(response.getEntity().getContent());
+
+            assertNotNull(result);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            client.getConnectionManager().shutdown();
+            // method.releaseConnection();
         }
     }
 
@@ -144,19 +124,35 @@ public class MeetingControllerTest {
         assertNotNull(gson.toJson(DayOfWeek.values()));
     }
 
-    private TestResponse request(String method, String path) {
+    private TestResponse request(String path) {
+
+        String url = "http://localhost:4567";
+        HttpClient client = new HttpClient();
+        GetMethod method = new GetMethod(url + path);
+
         try {
-            URL url = new URL("http://localhost:4567" + path);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod(method);
-            connection.setDoOutput(true);
-            connection.connect();
-            String body = IOUtils.toString(connection.getInputStream());
-            return new TestResponse(connection.getResponseCode(), body);
+
+//            // Provide custom retry handler is necessary
+//            method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
+//                    new DefaultHttpMethodRetryHandler(3, false));
+
+            int statusCode = client.executeMethod(method);
+
+            if (statusCode != HttpStatus.SC_OK) {
+                System.err.println("Method failed: " + method.getStatusLine());
+            }
+
+            // Read the response body.
+            byte[] responseBody = method.getResponseBody();
+
+            return new TestResponse(statusCode,  new String(responseBody));
+
         } catch (IOException e) {
             e.printStackTrace();
             fail("Sending request failed: " + e.getMessage());
             return null;
+        } finally {
+            method.releaseConnection();
         }
     }
 
