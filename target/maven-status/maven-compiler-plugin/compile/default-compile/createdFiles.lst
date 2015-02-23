@@ -1,0 +1,11 @@
+au\com\team2media\util\DayOfWeekUtil.class
+au\com\team2media\builder\MeetingBuilder.class
+au\com\team2media\util\CursorToJSONUtil.class
+au\com\team2media\controller\MeetingController.class
+au\com\team2media\model\Meeting.class
+au\com\team2media\util\DayOfWeekTypeAdapter.class
+au\com\team2media\util\JsonUtil.class
+au\com\team2media\au\com\team2media\error\ResponseError.class
+au\com\team2media\Meetings.class
+au\com\team2media\error\ResponseError.class
+au\com\team2media\service\MeetingService.class

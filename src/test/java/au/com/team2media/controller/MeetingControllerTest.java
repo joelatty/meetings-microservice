@@ -1,5 +1,6 @@
 package au.com.team2media.controller;
 
+import au.com.team2media.Meetings;
 import au.com.team2media.builder.MeetingBuilder;
 import au.com.team2media.model.Meeting;
 import au.com.team2media.util.DayOfWeekTypeAdapter;
@@ -16,6 +17,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import spark.Spark;
 import spark.utils.IOUtils;
 
 import java.io.IOException;
@@ -30,16 +34,17 @@ import static org.junit.Assert.*;
 
 public class MeetingControllerTest {
 
+    Logger log = LoggerFactory.getLogger(MeetingControllerTest.class);
     private MeetingController controller;
 
     @BeforeClass
     public static void setUp() throws Exception {
-//        Meetings.main(null);
+        Meetings.main(null);
     }
 
     @AfterClass
     public static void breakDown() {
-//        Spark.stop();
+        Spark.stop();
     }
 
     @Test
@@ -50,7 +55,7 @@ public class MeetingControllerTest {
         assertTrue(meetings.size() > 0);
         Meeting meeting = meetings.iterator().next();
         assertEquals("Newtown", meeting.getSuburb());
-        assertEquals("Newtown Steps", meeting.getName());
+        assertEquals("Bedford Steps", meeting.getName());
     }
 
     @Test
@@ -61,7 +66,6 @@ public class MeetingControllerTest {
 
     @Test
     public void testCreateMeeting() {
-        Meeting meeting = getMeeting();
 
         String url = "http://localhost:4567/meetings";
         org.apache.http.client.HttpClient client = new DefaultHttpClient();
@@ -69,8 +73,14 @@ public class MeetingControllerTest {
         try {
             HttpPost request = new HttpPost(url);
 
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
+            Gson gson = gsonBuilder.create();
+            String meeting = gson.toJson(getMeeting());
 
-            StringEntity params = new StringEntity("{\"name\":\"Paddington Steps\",\"suburb\":\"Paddington\", \"type\":\"General\"}");
+            log.debug("Meeting: " + meeting);
+
+            StringEntity params = new StringEntity(meeting);
 
             request.addHeader("content-type", "application/x-www-form-urlencoded");
             request.setEntity(params);
@@ -96,9 +106,12 @@ public class MeetingControllerTest {
         String[] types = {"General", "Speaker", "Topic", "Just for Today", "Reading", "Steps"};
         String[] startTimes = {"10:30AM", "7:00PM", "8:00PM", "12:00PM", "7:30PM", "12:30PM"};
         String[] endTimes = {"11:30AM", "8:30PM", "8:30PM", "1:00PM", "8:30PM", "2:00PM"};
+        String[] latitudes = {"-33.890844", "-33.896549", "-33.867487", "-33.881267"};
+        String[] longitudes = {"151.274291", "151.179963", "151.206990", "151.170604"};
         DayOfWeek[] daysOfWeek = DayOfWeek.values();
 
         int times = randInt(0,5);
+        int location = randInt(0, 3);
         return new MeetingBuilder()
                     .setName(names[randInt(0,5)])
                     .setSuburb(suburbs[randInt(0,6)])
@@ -106,6 +119,8 @@ public class MeetingControllerTest {
                     .setStartTime(startTimes[times])
                     .setEndTime(endTimes[times])
                     .setDayOfWeek(daysOfWeek[randInt(0,6)])
+                    .setLatitude(latitudes[location])
+                    .setLongitude(longitudes[location])
                     .build();
     }
 
@@ -131,11 +146,6 @@ public class MeetingControllerTest {
         GetMethod method = new GetMethod(url + path);
 
         try {
-
-//            // Provide custom retry handler is necessary
-//            method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
-//                    new DefaultHttpMethodRetryHandler(3, false));
-
             int statusCode = client.executeMethod(method);
 
             if (statusCode != HttpStatus.SC_OK) {

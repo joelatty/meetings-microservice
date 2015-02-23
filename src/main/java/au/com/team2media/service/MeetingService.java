@@ -45,6 +45,8 @@ public class MeetingService {
             meetingDBObject.put("endTime", meeting.getEndTime());
             meetingDBObject.put("dayOfWeek", meeting.getDayOfWeek() == null ? null : meeting.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH));
             meetingDBObject.put("type", meeting.getType());
+            meetingDBObject.put("latitude", meeting.getLatitude());
+            meetingDBObject.put("longitude", meeting.getLongitude());
 
             WriteResult writeResult = collection.insert(meetingDBObject);
 

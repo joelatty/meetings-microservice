@@ -19,6 +19,8 @@ public class MeetingBuilder {
     DayOfWeek dayOfWeek;
     String startTime;
     String endTime;
+    String latitude;
+    String longitude;
     Date dateOfBirth;
 
     public MeetingBuilder() {}
@@ -31,6 +33,8 @@ public class MeetingBuilder {
         startTime = meeting.getStartTime();
         endTime = meeting.getEndTime();
         dateOfBirth = meeting.getDateOfBirth();
+        latitude = meeting.getLatitude();
+        longitude = meeting.getLongitude();
     }
 
     public Meeting build() {
@@ -41,6 +45,8 @@ public class MeetingBuilder {
         meeting.setDayOfWeek(dayOfWeek);
         meeting.setStartTime(startTime);
         meeting.setEndTime(endTime);
+        meeting.setLatitude(latitude);
+        meeting.setLongitude(longitude);
         meeting.setDateOfBirth(dateOfBirth);
 
         return meeting;
@@ -73,6 +79,16 @@ public class MeetingBuilder {
 
     public MeetingBuilder setEndTime(String endTime) {
         this.endTime = endTime;
+        return this;
+    }
+
+    public MeetingBuilder setLatitude(String latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+
+    public MeetingBuilder setLongitude(String longitude) {
+        this.longitude = longitude;
         return this;
     }
 
