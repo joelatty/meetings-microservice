@@ -4,6 +4,8 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.DayOfWeek;
@@ -25,11 +27,16 @@ public class DayOfWeekUtil {
         }
     }
 
-    public String getDaysOfTheWeek() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
-        Gson gson = gsonBuilder.create();
-        return gson.toJson(DayOfWeek.values());
+    public JsonArray getDaysOfTheWeek() {
+        JsonArray jsonArray = new JsonArray();
+
+        for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("dayOfWeek", dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH));
+            jsonArray.add(jsonObject);
+        }
+
+        return jsonArray;
     }
 
     public List<String> getDaysOfTheWeekAsStrings() {

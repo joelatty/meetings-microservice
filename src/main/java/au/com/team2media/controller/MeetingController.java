@@ -6,6 +6,7 @@ import au.com.team2media.model.Meeting;
 import au.com.team2media.service.MeetingService;
 import au.com.team2media.util.DayOfWeekTypeAdapter;
 import au.com.team2media.util.DayOfWeekUtil;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,7 +17,9 @@ import java.time.DayOfWeek;
 import java.util.Map;
 
 import static au.com.team2media.util.CursorToJSONUtil.cursorToJson;
+import static au.com.team2media.util.DayOfWeekToJsonUtil.dayOfWeekToJson;
 import static au.com.team2media.util.JsonUtil.json;
+import static au.com.team2media.util.JsonUtil.toJson;
 import static spark.Spark.*;
 
 /**
