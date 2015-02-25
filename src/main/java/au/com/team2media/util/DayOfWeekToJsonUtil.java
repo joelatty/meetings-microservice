@@ -1,5 +1,6 @@
 package au.com.team2media.util;
 
+import au.com.team2media.typeadapter.DayOfWeekTypeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import spark.ResponseTransformer;

@@ -1,17 +1,13 @@
 package au.com.team2media.builder;
 
+import au.com.team2media.model.Coordinates;
+import au.com.team2media.model.Location;
 import au.com.team2media.model.Meeting;
+import au.com.team2media.util.GeoJSONType;
 
 import java.time.DayOfWeek;
 import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: s65721
- * Date: 18/02/15
- * Time: 4:50 PM
- * To change this template use File | Settings | File Templates.
- */
 public class MeetingBuilder {
     String name;
     String suburb;
@@ -22,6 +18,7 @@ public class MeetingBuilder {
     String latitude;
     String longitude;
     Date dateOfBirth;
+    GeoJSONType locationType;
 
     public MeetingBuilder() {}
 
@@ -33,8 +30,19 @@ public class MeetingBuilder {
         startTime = meeting.getStartTime();
         endTime = meeting.getEndTime();
         dateOfBirth = meeting.getDateOfBirth();
-        latitude = meeting.getLatitude();
-        longitude = meeting.getLongitude();
+        setCoordinates(meeting);
+    }
+
+    private void setCoordinates(Meeting meeting) {
+        Location location = meeting.getLocation();
+        locationType = location.getType();
+        if(location != null) {
+            Coordinates coordinates = location.getCoordinates();
+            if (coordinates != null) {
+                latitude = coordinates.getLatitude();
+                longitude = coordinates.getLongitude();
+            }
+        }
     }
 
     public Meeting build() {
@@ -45,11 +53,20 @@ public class MeetingBuilder {
         meeting.setDayOfWeek(dayOfWeek);
         meeting.setStartTime(startTime);
         meeting.setEndTime(endTime);
-        meeting.setLatitude(latitude);
-        meeting.setLongitude(longitude);
+        meeting.setLocation(getLocation());
         meeting.setDateOfBirth(dateOfBirth);
 
         return meeting;
+    }
+
+    private Location getLocation() {
+        Location location = new Location();
+        location.setType(locationType);
+        Coordinates coordinates = new Coordinates();
+        coordinates.setLatitude(latitude);
+        coordinates.setLongitude(longitude);
+        location.setCoordinates(coordinates);
+        return location;
     }
 
     public MeetingBuilder setName(String name) {
@@ -97,4 +114,8 @@ public class MeetingBuilder {
         return this;
     }
 
+    public MeetingBuilder setLocationType(GeoJSONType type) {
+        this.locationType = type;
+        return this;
+    }
 }

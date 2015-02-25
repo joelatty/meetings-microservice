@@ -1,6 +1,7 @@
 package au.com.team2media.service;
 
 import au.com.team2media.model.Meeting;
+import au.com.team2media.util.GeoJSONType;
 import com.mongodb.*;
 
 import java.net.UnknownHostException;
@@ -38,15 +39,23 @@ public class MeetingService {
             DB database = getMongoClient().getDB("naorg");
             DBCollection collection = database.getCollection("meeting");
 
-            BasicDBObject meetingDBObject = new BasicDBObject();
-            meetingDBObject.put("name", meeting.getName());
-            meetingDBObject.put("suburb", meeting.getSuburb());
-            meetingDBObject.put("startTime", meeting.getStartTime());
-            meetingDBObject.put("endTime", meeting.getEndTime());
-            meetingDBObject.put("dayOfWeek", meeting.getDayOfWeek() == null ? null : meeting.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH));
-            meetingDBObject.put("type", meeting.getType());
-            meetingDBObject.put("latitude", meeting.getLatitude());
-            meetingDBObject.put("longitude", meeting.getLongitude());
+            BasicDBObject meetingDBObject = new BasicDBObject("name", meeting.getName())
+            .append("suburb", meeting.getSuburb())
+            .append("startTime", meeting.getStartTime())
+            .append("endTime", meeting.getEndTime())
+            .append("dayOfWeek", meeting.getDayOfWeek() == null ? null : meeting.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH))
+            .append("type", meeting.getType());
+
+            BasicDBList coordinates = new BasicDBList();
+            coordinates.add(Double.valueOf(meeting.getLocation().getCoordinates().getLatitude()));
+            coordinates.add(Double.valueOf(meeting.getLocation().getCoordinates().getLongitude()));
+
+            meetingDBObject.append("location", new BasicDBObject("type", GeoJSONType.POINT.getDisplayValue())
+            .append("coordinates", coordinates));
+
+//            meetingDBObject.put("location")
+//            meetingDBObject.put("latitude", meeting.getLatitude());
+//            meetingDBObject.put("longitude", meeting.getLongitude());
 
             WriteResult writeResult = collection.insert(meetingDBObject);
 

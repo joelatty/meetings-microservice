@@ -12,25 +12,16 @@ public class Meeting {
 
     // @NotNull
     String name;
-
     // @NotNull
     String suburb;
-
     String type;
-
     // @NotNull
     DayOfWeek dayOfWeek;
-
     // @NotNull
     String startTime;
-
     String endTime;
-
-    String latitude;
-
-    String longitude;
-
     Date dateOfBirth;
+    Location location;
 
     public String getName() {
         return name;
@@ -80,27 +71,19 @@ public class Meeting {
         this.endTime = endTime;
     }
 
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

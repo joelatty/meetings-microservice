@@ -1,8 +1,7 @@
 package au.com.team2media.service;
 
-import au.com.team2media.util.DayOfWeekTypeAdapter;
+import au.com.team2media.typeadapter.DayOfWeekTypeAdapter;
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

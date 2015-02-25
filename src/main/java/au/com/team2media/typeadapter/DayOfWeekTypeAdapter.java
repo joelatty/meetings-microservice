@@ -1,4 +1,4 @@
-package au.com.team2media.util;
+package au.com.team2media.typeadapter;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -20,6 +20,9 @@ public class DayOfWeekTypeAdapter extends TypeAdapter<DayOfWeek> {
             return;
         }
 
+//        jsonWriter.beginObject();
+//        jsonWriter.name(dayOfWeek.toString()).value(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH));
+//        jsonWriter.endObject();
         jsonWriter.value(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH));
 
     }

@@ -16,31 +16,29 @@ import java.util.Locale;
 public class DayOfWeekUtil {
 
    private static final List<String> daysOfTheWeek = Lists.newArrayList();
+   private static final JsonArray jsonArray = new JsonArray();
 
    public DayOfWeekUtil() {
-       initDaysOfWeek();
+       init();
    }
 
-    private void initDaysOfWeek() {
+    private void init() {
+
         for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
             daysOfTheWeek.add(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH));
-        }
-    }
 
-    public JsonArray getDaysOfTheWeek() {
-        JsonArray jsonArray = new JsonArray();
-
-        for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("dayOfWeek", dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH));
             jsonArray.add(jsonObject);
         }
-
-        return jsonArray;
     }
 
     public List<String> getDaysOfTheWeekAsStrings() {
         return daysOfTheWeek;
+    }
+
+    public JsonArray getDaysOfTheWeek() {
+        return jsonArray;
     }
 
     public DayOfWeek getDayOfWeek(String dayOfWeek) {

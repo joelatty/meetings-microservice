@@ -2,8 +2,11 @@ package au.com.team2media.controller;
 
 import au.com.team2media.Meetings;
 import au.com.team2media.builder.MeetingBuilder;
+import au.com.team2media.model.Location;
 import au.com.team2media.model.Meeting;
-import au.com.team2media.util.DayOfWeekTypeAdapter;
+import au.com.team2media.typeadapter.DayOfWeekTypeAdapter;
+import au.com.team2media.typeadapter.LocationTypeAdapter;
+import au.com.team2media.util.GeoJSONType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -39,12 +42,12 @@ public class MeetingControllerTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Meetings.main(null);
+//        Meetings.main(null);
     }
 
     @AfterClass
     public static void breakDown() {
-        Spark.stop();
+//        Spark.stop();
     }
 
     @Test
@@ -75,6 +78,7 @@ public class MeetingControllerTest {
 
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
+            gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
             Gson gson = gsonBuilder.create();
             String meeting = gson.toJson(getMeeting());
 
@@ -119,6 +123,7 @@ public class MeetingControllerTest {
                     .setStartTime(startTimes[times])
                     .setEndTime(endTimes[times])
                     .setDayOfWeek(daysOfWeek[randInt(0,6)])
+                    .setLocationType(GeoJSONType.POINT)
                     .setLatitude(latitudes[location])
                     .setLongitude(longitudes[location])
                     .build();

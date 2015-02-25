@@ -2,11 +2,12 @@ package au.com.team2media.controller;
 
 
 import au.com.team2media.error.ResponseError;
+import au.com.team2media.model.Location;
 import au.com.team2media.model.Meeting;
 import au.com.team2media.service.MeetingService;
-import au.com.team2media.util.DayOfWeekTypeAdapter;
+import au.com.team2media.typeadapter.DayOfWeekTypeAdapter;
+import au.com.team2media.typeadapter.LocationTypeAdapter;
 import au.com.team2media.util.DayOfWeekUtil;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,9 +18,7 @@ import java.time.DayOfWeek;
 import java.util.Map;
 
 import static au.com.team2media.util.CursorToJSONUtil.cursorToJson;
-import static au.com.team2media.util.DayOfWeekToJsonUtil.dayOfWeekToJson;
 import static au.com.team2media.util.JsonUtil.json;
-import static au.com.team2media.util.JsonUtil.toJson;
 import static spark.Spark.*;
 
 /**
@@ -65,6 +64,7 @@ public class MeetingController {
 
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
+            gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
             Gson gson = gsonBuilder.create();
             Meeting meeting = gson.fromJson(request.body(), Meeting.class);
             return meetingService.createMeeting(meeting);
