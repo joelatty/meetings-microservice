@@ -57,8 +57,8 @@ public class LocationTypeAdapter  extends TypeAdapter<Location> {
                     break;
                 case BEGIN_ARRAY:
                     jsonReader.beginArray();
-                    coordinates.setLatitude(jsonReader.nextString());
-                    coordinates.setLongitude(jsonReader.nextString());
+                    coordinates.setLatitude(jsonReader.nextDouble());
+                    coordinates.setLongitude(jsonReader.nextDouble());
                     jsonReader.endArray();
                     break;
                 default:

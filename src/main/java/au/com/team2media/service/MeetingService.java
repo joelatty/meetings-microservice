@@ -1,5 +1,7 @@
 package au.com.team2media.service;
 
+import au.com.team2media.model.Coordinates;
+import au.com.team2media.model.Location;
 import au.com.team2media.model.Meeting;
 import au.com.team2media.util.GeoJSONType;
 import com.mongodb.*;
@@ -39,31 +41,41 @@ public class MeetingService {
             DB database = getMongoClient().getDB("naorg");
             DBCollection collection = database.getCollection("meeting");
 
-            BasicDBObject meetingDBObject = new BasicDBObject("name", meeting.getName())
-            .append("suburb", meeting.getSuburb())
-            .append("startTime", meeting.getStartTime())
-            .append("endTime", meeting.getEndTime())
-            .append("dayOfWeek", meeting.getDayOfWeek() == null ? null : meeting.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH))
-            .append("type", meeting.getType());
+            BasicDBObject meetingDBObject = getMeetingDBObject(meeting);
 
-            BasicDBList coordinates = new BasicDBList();
-            coordinates.add(Double.valueOf(meeting.getLocation().getCoordinates().getLatitude()));
-            coordinates.add(Double.valueOf(meeting.getLocation().getCoordinates().getLongitude()));
-
-            meetingDBObject.append("location", new BasicDBObject("type", GeoJSONType.POINT.getDisplayValue())
-            .append("coordinates", coordinates));
-
-//            meetingDBObject.put("location")
-//            meetingDBObject.put("latitude", meeting.getLatitude());
-//            meetingDBObject.put("longitude", meeting.getLongitude());
+            Location location = meeting.getLocation();
+            if(location != null) {
+                BasicDBList coordinates = getCoordinates(location);
+                meetingDBObject.append("location", new BasicDBObject("type", GeoJSONType.POINT.getDisplayValue())
+                .append("coordinates", coordinates));
+            }
 
             WriteResult writeResult = collection.insert(meetingDBObject);
 
             return meetingDBObject.get("_id");
         }
 
+    private BasicDBObject getMeetingDBObject(Meeting meeting) {
+        return new BasicDBObject("name", meeting.getName())
+                .append("suburb", meeting.getSuburb())
+                .append("startTime", meeting.getStartTime())
+                .append("endTime", meeting.getEndTime())
+                .append("dayOfWeek", meeting.getDayOfWeek() == null ? null : meeting.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH))
+                .append("type", meeting.getType());
+    }
 
-        // updates an existing meeting
+    private BasicDBList getCoordinates(Location location) {
+        Coordinates coordinates = location.getCoordinates();
+        BasicDBList coordinatesList = new BasicDBList();
+        if(coordinates != null) {
+            coordinatesList.add(coordinates.getLatitude());
+            coordinatesList.add(coordinates.getLongitude());
+        }
+        return coordinatesList;
+    }
+
+
+    // updates an existing meeting
         public Meeting updateMeeting(String id, String name, String suburb) { return new Meeting(); }
 
 

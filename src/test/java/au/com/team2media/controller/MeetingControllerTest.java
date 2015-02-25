@@ -110,8 +110,8 @@ public class MeetingControllerTest {
         String[] types = {"General", "Speaker", "Topic", "Just for Today", "Reading", "Steps"};
         String[] startTimes = {"10:30AM", "7:00PM", "8:00PM", "12:00PM", "7:30PM", "12:30PM"};
         String[] endTimes = {"11:30AM", "8:30PM", "8:30PM", "1:00PM", "8:30PM", "2:00PM"};
-        String[] latitudes = {"-33.890844", "-33.896549", "-33.867487", "-33.881267"};
-        String[] longitudes = {"151.274291", "151.179963", "151.206990", "151.170604"};
+        Double[] latitudes = {-33.890844, -33.896549, -33.867487, -33.881267};
+        Double[] longitudes = {151.274291, 151.179963, 151.206990, 151.170604};
         DayOfWeek[] daysOfWeek = DayOfWeek.values();
 
         int times = randInt(0,5);
@@ -185,6 +185,7 @@ public class MeetingControllerTest {
             Type collectionType = new TypeToken<Collection<Meeting>>(){}.getType();
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
+            gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
             Gson gson = gsonBuilder.create();
             Collection<Meeting> meetings = gson.fromJson(body, collectionType);
             return meetings;

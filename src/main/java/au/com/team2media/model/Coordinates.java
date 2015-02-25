@@ -1,30 +1,23 @@
 package au.com.team2media.model;
 
-/**
- * Created with IntelliJ IDEA.
- * User: s65721
- * Date: 25/02/15
- * Time: 10:09 AM
- * To change this template use File | Settings | File Templates.
- */
 public class Coordinates {
 
-    String latitude;
-    String longitude;
+    Double latitude;
+    Double longitude;
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 }

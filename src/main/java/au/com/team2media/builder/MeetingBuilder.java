@@ -15,8 +15,8 @@ public class MeetingBuilder {
     DayOfWeek dayOfWeek;
     String startTime;
     String endTime;
-    String latitude;
-    String longitude;
+    Double latitude;
+    Double longitude;
     Date dateOfBirth;
     GeoJSONType locationType;
 
@@ -99,12 +99,12 @@ public class MeetingBuilder {
         return this;
     }
 
-    public MeetingBuilder setLatitude(String latitude) {
+    public MeetingBuilder setLatitude(Double latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public MeetingBuilder setLongitude(String longitude) {
+    public MeetingBuilder setLongitude(Double longitude) {
         this.longitude = longitude;
         return this;
     }
