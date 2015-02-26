@@ -58,6 +58,7 @@ public class MeetingService {
     private BasicDBObject getMeetingDBObject(Meeting meeting) {
         return new BasicDBObject("name", meeting.getName())
                 .append("suburb", meeting.getSuburb())
+                .append("dateOfBirth", meeting.getDateOfBirth())
                 .append("startTime", meeting.getStartTime())
                 .append("endTime", meeting.getEndTime())
                 .append("dayOfWeek", meeting.getDayOfWeek() == null ? null : meeting.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH))
