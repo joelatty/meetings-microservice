@@ -65,6 +65,7 @@ public class MeetingController {
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
             gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
+            gsonBuilder.setDateFormat("dd/MM/yyyy").create();
             Gson gson = gsonBuilder.create();
             Meeting meeting = gson.fromJson(request.body(), Meeting.class);
             return meetingService.createMeeting(meeting);
