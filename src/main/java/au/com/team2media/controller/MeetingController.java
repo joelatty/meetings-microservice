@@ -47,6 +47,28 @@ public class MeetingController {
 
             }, cursorToJson());
 
+        get("/meetings/count",
+                (request, response) ->  {
+                    try {
+                        return meetingService.getMeetingsCount();
+                    } catch (Exception e) {
+                        halt(500);
+                    }
+                    return null;
+
+                }, cursorToJson());
+
+        get("/meetings/count/:suburb",
+                (request, response) ->  {
+                    try {
+                        return meetingService.getMeetingsCount(request.params(":suburb"));
+                    } catch (Exception e) {
+                        halt(500);
+                    }
+                    return null;
+
+                }, cursorToJson());
+
         get("/meetings/:suburb", (request, response) -> {
             try {
                 DBCursor cursor = meetingService.getMeetingsBySuburb(request.params(":suburb"));

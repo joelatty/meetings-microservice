@@ -9,10 +9,12 @@ import au.com.team2media.typeadapter.LocationTypeAdapter;
 import au.com.team2media.util.GeoJSONType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.bind.DateTypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -29,6 +31,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.DayOfWeek;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Random;
 
 import static junit.framework.Assert.assertEquals;
@@ -144,6 +147,12 @@ public class MeetingControllerTest {
         assertNotNull(gson.toJson(DayOfWeek.values()));
     }
 
+    @Test
+    public void testMeetingsCount() {
+        TestResponse res = request("/meetings/count");
+        System.out.println(res);
+    }
+
     private TestResponse request(String path) {
 
         String url = "http://localhost:4567";
@@ -183,10 +192,12 @@ public class MeetingControllerTest {
 
         public Collection<Meeting> json() {
             Type collectionType = new TypeToken<Collection<Meeting>>(){}.getType();
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
-            gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
-            Gson gson = gsonBuilder.create();
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter())
+                    .registerTypeAdapter(Location.class, new LocationTypeAdapter())
+                    //.registerTypeAdapter(Date.class, new DateTypeAdapter())
+                    .setDateFormat(DateFormatUtils.ISO_DATETIME_FORMAT.getPattern())
+                    .create();
             Collection<Meeting> meetings = gson.fromJson(body, collectionType);
             return meetings;
         }
