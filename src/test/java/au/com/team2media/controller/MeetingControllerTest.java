@@ -6,6 +6,7 @@ import au.com.team2media.model.Location;
 import au.com.team2media.model.Meeting;
 import au.com.team2media.typeadapter.DayOfWeekTypeAdapter;
 import au.com.team2media.typeadapter.LocationTypeAdapter;
+import au.com.team2media.typeadapter.MongoDBDateTypeAdapter;
 import au.com.team2media.util.GeoJSONType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -195,8 +196,7 @@ public class MeetingControllerTest {
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter())
                     .registerTypeAdapter(Location.class, new LocationTypeAdapter())
-                    //.registerTypeAdapter(Date.class, new DateTypeAdapter())
-                    .setDateFormat(DateFormatUtils.ISO_DATETIME_FORMAT.getPattern())
+                    .registerTypeAdapter(Date.class, new MongoDBDateTypeAdapter())
                     .create();
             Collection<Meeting> meetings = gson.fromJson(body, collectionType);
             return meetings;
