@@ -5,10 +5,13 @@ import au.com.team2media.model.Location;
 import au.com.team2media.model.Meeting;
 import au.com.team2media.util.GeoJSONType;
 import com.mongodb.*;
+import com.mongodb.util.JSON;
 
 import java.net.UnknownHostException;
 import java.time.format.TextStyle;
 import java.util.Locale;
+
+import static com.mongodb.util.JSON.serialize;
 
 /**
  * Created by joe on 3/01/15.
@@ -16,28 +19,23 @@ import java.util.Locale;
 public class MeetingService {
 
     private MongoClient client;
-    private DB database;
-    private DBCollection collection;
-
-    public MeetingService() {
-        init();
-    }
-
-    private void init() {
-        database = getMongoClient().getDB("naorg");
-        collection = database.getCollection("meeting");
-    }
 
     // returns a list of all meetings
-    public DBCursor getAllMeetings() {
-        return collection.find();
+    public String getAllMeetings() {
+        DB database = getMongoClient().getDB("naorg");
+        DBCollection collection = database.getCollection("meeting");
+        return serialize(collection.find());
     }
 
     public int getMeetingsCount() {
+        DB database = getMongoClient().getDB("naorg");
+        DBCollection collection = database.getCollection("meeting");
         return collection.find().count();
     }
 
     public int getMeetingsCount(String suburb) {
+        DB database = getMongoClient().getDB("naorg");
+        DBCollection collection = database.getCollection("meeting");
         DBObject dbobject = new QueryBuilder()
                 .start()
                 .put("suburb")
@@ -52,13 +50,17 @@ public class MeetingService {
         return new Meeting();
     }
 
-    public DBCursor getMeetingsBySuburb(String suburb) {
+    public String getMeetingsBySuburb(String suburb) {
+        DB database = getMongoClient().getDB("naorg");
+        DBCollection collection = database.getCollection("meeting");
         BasicDBObject query = new BasicDBObject("suburb", suburb);
-        return collection.find(query);
+        return serialize(collection.find(query));
     }
+
 
     // creates a new meeting
     public Object createMeeting(Meeting meeting) {
+
         BasicDBObject meetingDBObject = getMeetingDBObject(meeting);
         Location location = meeting.getLocation();
         if (location != null) {
@@ -66,6 +68,9 @@ public class MeetingService {
             meetingDBObject.append("location", new BasicDBObject("type", GeoJSONType.POINT.getDisplayValue())
                     .append("coordinates", coordinates));
         }
+
+        DB database = getMongoClient().getDB("naorg");
+        DBCollection collection = database.getCollection("meeting");
 
         WriteResult writeResult = collection.insert(meetingDBObject);
 
@@ -108,5 +113,9 @@ public class MeetingService {
         }
 
         return client;
+    }
+
+    private void closeConnection() {
+        client.close();
     }
 }

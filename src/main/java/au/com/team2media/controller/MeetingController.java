@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.mongodb.DBCursor;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.DayOfWeek;
 import java.util.Map;
@@ -32,6 +33,8 @@ public class MeetingController {
 
         get("/", (request, response) -> getMapResponse(), json());
 
+        get("/hello", (request, response) -> getMapResponse(), json());
+
         get("/daysOfTheWeek", (request, response) ->
                 dayOfWeekUtil.getDaysOfTheWeek(),
                 json());
@@ -45,7 +48,7 @@ public class MeetingController {
               }
               return null;
 
-            }, cursorToJson());
+            });
 
         get("/meetings/count",
                 (request, response) ->  {
@@ -67,20 +70,20 @@ public class MeetingController {
                     }
                     return null;
 
-                }, cursorToJson());
+                });
 
         get("/meetings/:suburb", (request, response) -> {
+            String json = "";
             try {
-                DBCursor cursor = meetingService.getMeetingsBySuburb(request.params(":suburb"));
-                if(cursor != null) {
-                    return cursor;
-                } else {
-                    return new ResponseError("No meetings found for suburb: " + request.params(":suburb"));
+                json = meetingService.getMeetingsBySuburb(request.params(":suburb"));
+                if(StringUtils.isEmpty(json)) {
+                    new Gson().toJson("No meetings found for suburb: " + request.params(":suburb"));
                 }
             } catch (Exception e) {
                 return new ResponseError(e.getMessage());
             }
-        }, cursorToJson());
+            return json;
+        });
 
         post("/meetings", "application/json", (request, response) -> {
 

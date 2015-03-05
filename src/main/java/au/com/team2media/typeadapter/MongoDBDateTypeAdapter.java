@@ -14,13 +14,6 @@ import java.time.DayOfWeek;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: s65721
- * Date: 2/03/15
- * Time: 4:07 PM
- * To change this template use File | Settings | File Templates.
- */
 public class MongoDBDateTypeAdapter extends TypeAdapter<Date> {
 
     private static final String MONGO_UTC_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
@@ -44,27 +37,29 @@ public class MongoDBDateTypeAdapter extends TypeAdapter<Date> {
             return null;
         }
 
-        while(jsonReader.hasNext()) {
-            JsonToken token = jsonReader.peek();
-            switch (token) {
-                case BEGIN_OBJECT:
-                    jsonReader.beginObject();
-                    String objectName = jsonReader.nextName();
-                    Date date = null;
-                    if(objectName.equals("$date")) {
-                        date = getDateFromString(jsonReader.nextString());
-                        jsonReader.endObject();
-                        return date;
+        Date date = null;
+
+//        while(jsonReader.hasNext()) {
+            if(jsonReader.peek().equals(JsonToken.BEGIN_OBJECT)) {
+                jsonReader.beginObject();
+
+                while(!jsonReader.peek().equals(JsonToken.END_OBJECT)) {
+                    JsonToken token = jsonReader.peek();
+                    switch (token) {
+                        case NAME:
+                            if(jsonReader.nextName().equals("$date")) {
+                                date = getDateFromString(jsonReader.nextString());
+                            }
+                            break;
+                        default:
+                            jsonReader.skipValue();
                     }
-                    break;
-                default:
-                    jsonReader.skipValue();
+                }
+                jsonReader.endObject();
             }
-        }
+  //      }
 
-
-
-        return null;
+        return date;
     }
 
     private Date getDateFromString(String date) {

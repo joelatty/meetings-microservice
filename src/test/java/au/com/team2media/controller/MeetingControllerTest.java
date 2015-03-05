@@ -30,6 +30,8 @@ import spark.utils.IOUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.Collection;
 import java.util.Date;
@@ -46,16 +48,28 @@ public class MeetingControllerTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-//        Meetings.main(null);
+        Meetings.main(null);
     }
 
     @AfterClass
     public static void breakDown() {
-//        Spark.stop();
+        Spark.stop();
     }
 
     @Test
     public void getMeetingsList() {
+        TestResponse res = request("/meetings");
+        Collection<Meeting> meetings = res.json();
+        assertNotNull(meetings);
+        assertTrue(meetings.size() > 0);
+        Meeting meeting = meetings.iterator().next();
+        assertEquals("Glebe", meeting.getSuburb());
+        assertEquals("Glebe Speaker Meeting", meeting.getName());
+    }
+
+
+    @Test
+    public void getMeetingsListBySuburb() {
         TestResponse res = request("/meetings/Newtown");
         Collection<Meeting> meetings = res.json();
         assertNotNull(meetings);
@@ -72,7 +86,7 @@ public class MeetingControllerTest {
     }
 
     @Test
-    public void testCreateMeeting() {
+    public void testCreateMeeting() throws ParseException {
 
         String url = "http://localhost:4567/meetings";
         org.apache.http.client.HttpClient client = new DefaultHttpClient();
@@ -83,6 +97,7 @@ public class MeetingControllerTest {
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
             gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
+            gsonBuilder.setDateFormat("dd/MM/yyyy").create();
             Gson gson = gsonBuilder.create();
             String meeting = gson.toJson(getMeeting());
 
@@ -107,7 +122,7 @@ public class MeetingControllerTest {
         }
     }
 
-    private Meeting getMeeting() {
+    private Meeting getMeeting() throws ParseException {
 
         String[] names = {"Cliff Hangers", "Glebe Speaker Meeting", "Bedford Steps", "Newtown Community Centre", "Annandale Boomerangs", "Lewisham Saturday Night"};
         String[] suburbs = {"Bondi North", "Glebe", "Newtown", "Annandale", "Paddington", "Camperdown", "Darlinghurst"};
@@ -117,19 +132,21 @@ public class MeetingControllerTest {
         Double[] latitudes = {-33.890844, -33.896549, -33.867487, -33.881267};
         Double[] longitudes = {151.274291, 151.179963, 151.206990, 151.170604};
         DayOfWeek[] daysOfWeek = DayOfWeek.values();
+        String dates[] = {"12/01/2009", "01/09/1978", "22/10/2001", "01/01/1980", "31/10/1999", "03/02/2015"};
 
         int times = randInt(0,5);
         int location = randInt(0, 3);
         return new MeetingBuilder()
                     .setName(names[randInt(0,5)])
-                    .setSuburb(suburbs[randInt(0,6)])
-                    .setType(types[randInt(0,5)])
+                    .setSuburb(suburbs[randInt(0, 6)])
+                    .setType(types[randInt(0, 5)])
                     .setStartTime(startTimes[times])
                     .setEndTime(endTimes[times])
-                    .setDayOfWeek(daysOfWeek[randInt(0,6)])
+                    .setDayOfWeek(daysOfWeek[randInt(0, 6)])
                     .setLocationType(GeoJSONType.POINT)
                     .setLatitude(latitudes[location])
                     .setLongitude(longitudes[location])
+                    .setDateOfBirth(new SimpleDateFormat("dd/MM/yyyy").parse(dates[randInt(0, 5)]))
                     .build();
     }
 
