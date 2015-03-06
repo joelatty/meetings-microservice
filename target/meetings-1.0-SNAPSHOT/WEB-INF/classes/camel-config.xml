@@ -31,59 +31,41 @@
 
   <!-- a bean for user services -->
   <bean id="meetingService" class="au.com.team2media.service.MeetingService" />
+  <bean id="daysOfTheWeekService" class="au.com.team2media.service.DaysOfTheWeekService" />
 
      <camelContext xmlns="http://camel.apache.org/schema/spring">
 
-         <propertyPlaceholder id="properties" location="mongodb.test.properties"/>
+         <propertyPlaceholder id="properties" location="mongodb.properties"/>
 
          <routeBuilder ref="userRoutes"/>
 
-         <route>
-             <from uri="spark-rest:get:all"/>
-             <to uri="mongodb:mongoBean?database={{mongodb.testDb}}&amp;collection={{mongodb.testCollection}}&amp;operation=findAll"/>
-         </route>
-         <route>
-             <from uri="spark-rest:get:all/:suburb"/>
-             <to uri="bean:meetingService?method=getMeetingsBySuburb(${header.suburb})"/>
-         </route>
-         <route>
-             <from uri="direct:count"/>
-             <to uri="mongodb:mongoBean?database={{mongodb.testDb}}&amp;collection={{mongodb.testCollection}}&amp;operation=count&amp;dynamicity=true"/>
-         </route>
+         <restConfiguration component="spark-rest" bindingMode="json" port="8080">
+             <dataFormatProperty key="prettyPrint" value="true"/>
+         </restConfiguration>
+
+
+         <!--<to uri="mongodb:mongoBean?database={{mongodb.database}}&amp;collection={{mongodb.collection}}&amp;operation=count&amp;dynamicity=true"/>-->
+
 
          <route>
-             <from uri="direct:insert"/>
-             <to uri="mongodb:mongoBean?database={{mongodb.testDb}}&amp;collection={{mongodb.testCollection}}&amp;operation=insert&amp;writeConcern=SAFE"/>
+             <from uri="spark-rest:get:meetings"/>
+             <to uri="bean:meetingService?method=getAllMeetings"/>
          </route>
-
          <route>
-             <from uri="direct:save"/>
-             <to uri="mongodb:mongoBean?database={{mongodb.testDb}}&amp;collection={{mongodb.testCollection}}&amp;operation=save&amp;writeConcern=SAFE"/>
+             <from uri="spark-rest:get:meetings/:suburb"/>
+             <to uri="bean:meetingService?method=getAllMeetings(${header.suburb)"/>
          </route>
-
          <route>
-             <from uri="direct:update"/>
-             <to uri="mongodb:mongoBean?database={{mongodb.testDb}}&amp;collection={{mongodb.testCollection}}&amp;operation=update&amp;writeConcern=SAFE"/>
+             <from uri="spark-rest:get:count" />
+             <to uri="bean:meetingService?method=getMeetingsCount()"/>
          </route>
-
          <route>
-             <from uri="direct:remove"/>
-             <to uri="mongodb:mongoBean?database={{mongodb.testDb}}&amp;collection={{mongodb.testCollection}}&amp;operation=remove&amp;writeConcern=SAFE"/>
+             <from uri="spark-rest:get:count/:suburb" />
+             <to uri="bean:meetingService?method=getMeetingsCount(${header.suburb})"/>
          </route>
-
          <route>
-             <from uri="direct:aggregate"/>
-             <to uri="mongodb:mongoBean?database={{mongodb.testDb}}&amp;collection={{mongodb.testCollection}}&amp;operation=aggregate&amp;writeConcern=SAFE"/>
-         </route>
-
-         <route>
-             <from uri="direct:getDbStats"/>
-             <to uri="mongodb:mongoBean?database={{mongodb.testDb}}&amp;collection={{mongodb.testCollection}}&amp;operation=getDbStats"/>
-         </route>
-
-         <route>
-             <from uri="direct:getColStats"/>
-             <to uri="mongodb:mongoBean?database={{mongodb.testDb}}&amp;collection={{mongodb.testCollection}}&amp;operation=getColStats"/>
+             <from uri="spark-rest:get:daysOfTheWeek" />
+             <to uri="bean:daysOfTheWeekService?method=getDaysOfTheWeek"/>
          </route>
 
 

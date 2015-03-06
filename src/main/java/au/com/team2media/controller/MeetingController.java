@@ -39,73 +39,73 @@ public class MeetingController {
                 dayOfWeekUtil.getDaysOfTheWeek(),
                 json());
 
-        get("/meetings",
-            (request, response) ->  {
-              try {
-                return meetingService.getAllMeetings();
-              } catch (Exception e) {
-                  halt(500);
-              }
-              return null;
-
-            });
-
-        get("/meetings/count",
-                (request, response) ->  {
-                    try {
-                        return meetingService.getMeetingsCount();
-                    } catch (Exception e) {
-                        halt(500);
-                    }
-                    return null;
-
-                }, cursorToJson());
-
-        get("/meetings/count/:suburb",
-                (request, response) ->  {
-                    try {
-                        return meetingService.getMeetingsCount(request.params(":suburb"));
-                    } catch (Exception e) {
-                        halt(500);
-                    }
-                    return null;
-
-                });
-
-        get("/meetings/:suburb", (request, response) -> {
-            String json = "";
-            try {
-                json = meetingService.getMeetingsBySuburb(request.params(":suburb"));
-                if(StringUtils.isEmpty(json)) {
-                    new Gson().toJson("No meetings found for suburb: " + request.params(":suburb"));
-                }
-            } catch (Exception e) {
-                return new ResponseError(e.getMessage());
-            }
-            return json;
-        });
-
-        post("/meetings", "application/json", (request, response) -> {
-
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
-            gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
-            gsonBuilder.setDateFormat("dd/MM/yyyy").create();
-            Gson gson = gsonBuilder.create();
-            Meeting meeting = gson.fromJson(request.body(), Meeting.class);
-            return meetingService.createMeeting(meeting);
-
-        }, cursorToJson());
-
-        exception(JsonSyntaxException.class, (e, req, res) -> {
-            res.status(400);
-            res.body(new Gson().toJson(new ResponseError(e)));
-        });
-
-        exception(IllegalArgumentException.class, (e, req, res) -> {
-            res.status(400);
-            res.body(new Gson().toJson(new ResponseError(e)));
-        });
+//        get("/meetings",
+//            (request, response) ->  {
+//              try {
+//                return meetingService.getAllMeetings();
+//              } catch (Exception e) {
+//                  halt(500);
+//              }
+//              return null;
+//
+//            });
+//
+//        get("/meetings/count",
+//                (request, response) ->  {
+//                    try {
+//                        return meetingService.getMeetingsCount();
+//                    } catch (Exception e) {
+//                        halt(500);
+//                    }
+//                    return null;
+//
+//                }, cursorToJson());
+//
+//        get("/meetings/count/:suburb",
+//                (request, response) ->  {
+//                    try {
+//                        return meetingService.getMeetingsCount(request.params(":suburb"));
+//                    } catch (Exception e) {
+//                        halt(500);
+//                    }
+//                    return null;
+//
+//                });
+//
+//        get("/meetings/:suburb", (request, response) -> {
+//            String json = "";
+//            try {
+//                json = meetingService.getMeetingsBySuburb(request.params(":suburb"));
+//                if(StringUtils.isEmpty(json)) {
+//                    new Gson().toJson("No meetings found for suburb: " + request.params(":suburb"));
+//                }
+//            } catch (Exception e) {
+//                return new ResponseError(e.getMessage());
+//            }
+//            return json;
+//        });
+//
+//        post("/meetings", "application/json", (request, response) -> {
+//
+//            GsonBuilder gsonBuilder = new GsonBuilder();
+//            gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
+//            gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
+//            gsonBuilder.setDateFormat("dd/MM/yyyy").create();
+//            Gson gson = gsonBuilder.create();
+//            Meeting meeting = gson.fromJson(request.body(), Meeting.class);
+//            return meetingService.createMeeting(meeting);
+//
+//        }, cursorToJson());
+//
+//        exception(JsonSyntaxException.class, (e, req, res) -> {
+//            res.status(400);
+//            res.body(new Gson().toJson(new ResponseError(e)));
+//        });
+//
+//        exception(IllegalArgumentException.class, (e, req, res) -> {
+//            res.status(400);
+//            res.body(new Gson().toJson(new ResponseError(e)));
+//        });
     }
 
     private Map<String, String> getMapResponse() {

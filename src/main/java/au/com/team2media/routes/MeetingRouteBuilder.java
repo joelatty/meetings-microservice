@@ -20,8 +20,11 @@ public class MeetingRouteBuilder extends RouteBuilder {
         // this user REST service is json only
         rest("/test").consumes("application/json").produces("application/json")
             .get("/meetings")
-            .to("mongodb:mongoBean?database=naorg&collection=meeting&operation=findAll");
+            .to("mongodb:mongoBean?database=naorg&collection=meeting&operation=findAll")
 
+
+            .get("all-meetings")
+                .to("bean:meetingService?method=getAllMeetings");
 
 
 

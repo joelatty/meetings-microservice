@@ -5,7 +5,8 @@ import au.com.team2media.model.Location;
 import au.com.team2media.model.Meeting;
 import au.com.team2media.util.GeoJSONType;
 import com.mongodb.*;
-import com.mongodb.util.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.UnknownHostException;
 import java.time.format.TextStyle;
@@ -18,24 +19,36 @@ import static com.mongodb.util.JSON.serialize;
  */
 public class MeetingService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(MeetingService.class);
+
     private MongoClient client;
+    private String databaseName = "naorg";
+    private String collectionName = "meeting";
 
     // returns a list of all meetings
     public String getAllMeetings() {
-        DB database = getMongoClient().getDB("naorg");
-        DBCollection collection = database.getCollection("meeting");
+        DB database = getMongoClient().getDB(databaseName);
+        DBCollection collection = database.getCollection(collectionName);
         return serialize(collection.find());
+//
+//        // make sure the cursor is closed
+//        if (cursor != null) {
+//            json = serialize(cursor);
+//            // cursor.close();
+//        }
+//
+//        return json;
     }
 
     public int getMeetingsCount() {
-        DB database = getMongoClient().getDB("naorg");
-        DBCollection collection = database.getCollection("meeting");
+        DB database = getMongoClient().getDB(databaseName);
+        DBCollection collection = database.getCollection(collectionName);
         return collection.find().count();
     }
 
     public int getMeetingsCount(String suburb) {
-        DB database = getMongoClient().getDB("naorg");
-        DBCollection collection = database.getCollection("meeting");
+        DB database = getMongoClient().getDB(databaseName);
+        DBCollection collection = database.getCollection(collectionName);
         DBObject dbobject = new QueryBuilder()
                 .start()
                 .put("suburb")
@@ -51,8 +64,8 @@ public class MeetingService {
     }
 
     public String getMeetingsBySuburb(String suburb) {
-        DB database = getMongoClient().getDB("naorg");
-        DBCollection collection = database.getCollection("meeting");
+        DB database = getMongoClient().getDB(databaseName);
+        DBCollection collection = database.getCollection(collectionName);
         BasicDBObject query = new BasicDBObject("suburb", suburb);
         return serialize(collection.find(query));
     }
@@ -69,8 +82,8 @@ public class MeetingService {
                     .append("coordinates", coordinates));
         }
 
-        DB database = getMongoClient().getDB("naorg");
-        DBCollection collection = database.getCollection("meeting");
+        DB database = getMongoClient().getDB(databaseName);
+        DBCollection collection = database.getCollection(collectionName);
 
         WriteResult writeResult = collection.insert(meetingDBObject);
 
@@ -117,5 +130,15 @@ public class MeetingService {
 
     private void closeConnection() {
         client.close();
+    }
+
+    public void setDatabaseName(String databaseName) {
+        LOG.info("Database: " + databaseName);
+        this.databaseName = databaseName;
+    }
+
+    public void setCollectionName(String collectionName) {
+        LOG.info("Collection: " + collectionName);
+        this.collectionName = collectionName;
     }
 }
