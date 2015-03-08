@@ -3,13 +3,23 @@ package au.com.team2media.service;
 import au.com.team2media.model.Coordinates;
 import au.com.team2media.model.Location;
 import au.com.team2media.model.Meeting;
+import au.com.team2media.typeadapter.DayOfWeekTypeAdapter;
+import au.com.team2media.typeadapter.LocationTypeAdapter;
 import au.com.team2media.util.GeoJSONType;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mongodb.*;
+import org.apache.camel.Body;
+import org.apache.camel.Header;
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jetty.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.UnknownHostException;
+import java.time.DayOfWeek;
 import java.time.format.TextStyle;
+import java.util.Arrays;
 import java.util.Locale;
 
 import static com.mongodb.util.JSON.serialize;
@@ -20,41 +30,52 @@ import static com.mongodb.util.JSON.serialize;
 public class MeetingService {
 
     private static final Logger LOG = LoggerFactory.getLogger(MeetingService.class);
+    private static final String SUBURB = "suburb";
 
     private MongoClient client;
-    private String databaseName = "naorg";
+    private String databaseName = "team2media";
     private String collectionName = "meeting";
 
-    // returns a list of all meetings
-    public String getAllMeetings() {
-        DB database = getMongoClient().getDB(databaseName);
-        DBCollection collection = database.getCollection(collectionName);
-        return serialize(collection.find());
-//
-//        // make sure the cursor is closed
-//        if (cursor != null) {
-//            json = serialize(cursor);
-//            // cursor.close();
-//        }
-//
-//        return json;
+
+    public String getMeetings(@Header("suburb") String suburb) {
+        DBCollection collection = getMeetingCollection();
+        DBCursor cursor = null;
+        try {
+            if (StringUtil.isBlank(suburb)) {
+                cursor = collection.find();
+            } else {
+                cursor = collection.find(getDbObject(SUBURB, suburb));
+            }
+
+            return serialize(cursor);
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+     }
+
+
+    public int getMeetingsCount(@Header("suburb") String suburb) {
+        DBCollection collection = getMeetingCollection();
+        if(StringUtils.isEmpty(suburb)) {
+            return collection.find().count();
+        }
+        return collection.find(getDbObject(SUBURB, suburb)).count();
     }
 
-    public int getMeetingsCount() {
+    private DBCollection getMeetingCollection() {
         DB database = getMongoClient().getDB(databaseName);
-        DBCollection collection = database.getCollection(collectionName);
-        return collection.find().count();
+        return database.getCollection(collectionName);
     }
 
-    public int getMeetingsCount(String suburb) {
-        DB database = getMongoClient().getDB(databaseName);
-        DBCollection collection = database.getCollection(collectionName);
-        DBObject dbobject = new QueryBuilder()
-                .start()
-                .put("suburb")
-                .is(suburb)
-                .get();
-        return collection.find(dbobject).count();
+    private DBObject getDbObject(String key, String value) {
+        return new QueryBuilder()
+                    .start()
+                    .put(key)
+                    .is(value)
+                    .get();
     }
 
 
@@ -63,16 +84,18 @@ public class MeetingService {
         return new Meeting();
     }
 
-    public String getMeetingsBySuburb(String suburb) {
-        DB database = getMongoClient().getDB(databaseName);
-        DBCollection collection = database.getCollection(collectionName);
-        BasicDBObject query = new BasicDBObject("suburb", suburb);
-        return serialize(collection.find(query));
-    }
+
 
 
     // creates a new meeting
-    public Object createMeeting(Meeting meeting) {
+    public Object createMeeting(@Body() String body) {
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
+        gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
+        gsonBuilder.setDateFormat("dd/MM/yyyy").create();
+        Gson gson = gsonBuilder.create();
+        Meeting meeting = gson.fromJson(body, Meeting.class);
 
         BasicDBObject meetingDBObject = getMeetingDBObject(meeting);
         Location location = meeting.getLocation();
@@ -82,12 +105,11 @@ public class MeetingService {
                     .append("coordinates", coordinates));
         }
 
-        DB database = getMongoClient().getDB(databaseName);
-        DBCollection collection = database.getCollection(collectionName);
+        DBCollection collection = getMeetingCollection();
 
         WriteResult writeResult = collection.insert(meetingDBObject);
 
-        return meetingDBObject.get("_id");
+        return serialize (meetingDBObject.get("_id"));
     }
 
     private BasicDBObject getMeetingDBObject(Meeting meeting) {
@@ -120,7 +142,9 @@ public class MeetingService {
     private MongoClient getMongoClient() {
         if (client != null) return client;
         try {
-            client = new MongoClient();
+            MongoCredential credential = MongoCredential.createMongoCRCredential("tester", "team2media", "drmf5ltd".toCharArray());
+            ServerAddress address = new ServerAddress("ds045988.mongolab.com", 45988);
+            client = new MongoClient(address, Arrays.asList(credential));
         } catch (UnknownHostException e) {
             throw new RuntimeException(e.getMessage());
         }

@@ -3,7 +3,6 @@
 .project
 .settings
 .classpath
-.target/
+target/
 .idea/
 
-target/maven-archiver/pom.properties

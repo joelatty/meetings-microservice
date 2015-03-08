@@ -49,23 +49,27 @@
 
          <route>
              <from uri="spark-rest:get:meetings"/>
-             <to uri="bean:meetingService?method=getAllMeetings"/>
+             <to uri="bean:meetingService?method=getMeetings"/>
          </route>
          <route>
              <from uri="spark-rest:get:meetings/:suburb"/>
-             <to uri="bean:meetingService?method=getAllMeetings(${header.suburb)"/>
+             <to uri="bean:meetingService?method=getMeetings"/>
          </route>
          <route>
              <from uri="spark-rest:get:count" />
-             <to uri="bean:meetingService?method=getMeetingsCount()"/>
+             <to uri="bean:meetingService?method=getMeetingsCount"/>
          </route>
          <route>
              <from uri="spark-rest:get:count/:suburb" />
-             <to uri="bean:meetingService?method=getMeetingsCount(${header.suburb})"/>
+             <to uri="bean:meetingService?method=getMeetingsCount"/>
          </route>
          <route>
              <from uri="spark-rest:get:daysOfTheWeek" />
              <to uri="bean:daysOfTheWeekService?method=getDaysOfTheWeek"/>
+         </route>
+         <route>
+             <from uri="spark-rest:post:meetings" />
+             <to uri="bean:meetingService?method=createMeeting"/>
          </route>
 
 
