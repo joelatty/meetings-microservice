@@ -33,8 +33,8 @@ public class MeetingService {
     private static final String SUBURB = "suburb";
 
     private MongoClient client;
-    private String databaseName = "team2media";
-    private String collectionName = "meeting";
+    private String databaseName;
+    private String collectionName;
 
 
     public String getMeetings(@Header("suburb") String suburb) {
@@ -109,7 +109,7 @@ public class MeetingService {
 
         WriteResult writeResult = collection.insert(meetingDBObject);
 
-        return serialize (meetingDBObject.get("_id"));
+        return serialize(meetingDBObject.get("_id"));
     }
 
     private BasicDBObject getMeetingDBObject(Meeting meeting) {
@@ -142,9 +142,11 @@ public class MeetingService {
     private MongoClient getMongoClient() {
         if (client != null) return client;
         try {
-            MongoCredential credential = MongoCredential.createMongoCRCredential("tester", "team2media", "drmf5ltd".toCharArray());
-            ServerAddress address = new ServerAddress("ds045988.mongolab.com", 45988);
-            client = new MongoClient(address, Arrays.asList(credential));
+//            MongoCredential credential = MongoCredential.createMongoCRCredential("tester", "team2media", "drmf5ltd".toCharArray());
+//            MongoClientURI clientURI = new MongoClientURI("mongodb://tester:drmf5ltd@ds045988.mongolab.com:45988/team2media");
+//            ServerAddress address = new ServerAddress("ds045988.mongolab.com", 45988);
+//            client = new MongoClient(address, Arrays.asList(credential));
+            client = new MongoClient();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e.getMessage());
         }

@@ -29,8 +29,17 @@
   <!-- a rest service which uses binding to/from pojos -->
   <bean id="userRoutes" class="au.com.team2media.routes.MeetingRouteBuilder"/>
 
+    <bean id="databaseProperties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:mongodb.properties" />
+    </bean>
+
   <!-- a bean for user services -->
-  <bean id="meetingService" class="au.com.team2media.service.MeetingService" />
+  <bean id="meetingService" class="au.com.team2media.service.MeetingService">
+          <property name="databaseName" value="${mongodb.database}" />
+    <property name="collectionName" value="${mongodb.collection}" />
+  </bean>
+
   <bean id="daysOfTheWeekService" class="au.com.team2media.service.DaysOfTheWeekService" />
 
      <camelContext xmlns="http://camel.apache.org/schema/spring">

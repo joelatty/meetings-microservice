@@ -106,6 +106,18 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-atmosphere-websocket</artifactId>
+            <version>${camel-version}</version>
+            <!-- use the same version as your Camel core version -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test</artifactId>
+            <version>${camel-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-spark-rest</artifactId>
             <version>${camel-version}</version>
             <!-- exclude javax servlet as its already part of the servlet container -->
