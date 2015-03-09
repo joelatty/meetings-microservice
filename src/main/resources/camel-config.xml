@@ -23,65 +23,66 @@
          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <bean id="mongoBean" class="com.mongodb.Mongo" />
+    <bean id="mongoBean" class="com.mongodb.Mongo"/>
 
 
-  <!-- a rest service which uses binding to/from pojos -->
-  <bean id="userRoutes" class="au.com.team2media.routes.MeetingRouteBuilder"/>
+    <!-- a rest service which uses binding to/from pojos -->
+    <bean id="userRoutes" class="au.com.team2media.routes.MeetingRouteBuilder"/>
 
     <bean id="databaseProperties"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:mongodb.properties" />
+        <property name="location" value="classpath:mongodb.properties"/>
     </bean>
 
-  <!-- a bean for user services -->
-  <bean id="meetingService" class="au.com.team2media.service.MeetingService">
-          <property name="databaseName" value="${mongodb.database}" />
-    <property name="collectionName" value="${mongodb.collection}" />
-  </bean>
+    <!-- a bean for user services -->
+    <bean id="meetingService" class="au.com.team2media.service.MeetingService">
+        <property name="databaseName" value="${mongodb.database}"/>
+        <property name="collectionName" value="${mongodb.collection}"/>
+        <property name="clientURI" value="${mongodb.clientURI}" />
+    </bean>
 
-  <bean id="daysOfTheWeekService" class="au.com.team2media.service.DaysOfTheWeekService" />
+    <bean id="daysOfTheWeekService" class="au.com.team2media.service.DaysOfTheWeekService"/>
 
-     <camelContext xmlns="http://camel.apache.org/schema/spring">
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
 
-         <propertyPlaceholder id="properties" location="mongodb.properties"/>
+        <propertyPlaceholder id="properties" location="mongodb.properties"/>
 
-         <routeBuilder ref="userRoutes"/>
+        <routeBuilder ref="userRoutes"/>
 
-         <restConfiguration component="spark-rest" bindingMode="json" port="8080">
-             <dataFormatProperty key="prettyPrint" value="true"/>
-         </restConfiguration>
-
-
-         <!--<to uri="mongodb:mongoBean?database={{mongodb.database}}&amp;collection={{mongodb.collection}}&amp;operation=count&amp;dynamicity=true"/>-->
+        <restConfiguration component="spark-rest" bindingMode="json" port="8080">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+        </restConfiguration>
 
 
-         <route>
-             <from uri="spark-rest:get:meetings"/>
-             <to uri="bean:meetingService?method=getMeetings"/>
-         </route>
-         <route>
-             <from uri="spark-rest:get:meetings/:suburb"/>
-             <to uri="bean:meetingService?method=getMeetings"/>
-         </route>
-         <route>
-             <from uri="spark-rest:get:count" />
-             <to uri="bean:meetingService?method=getMeetingsCount"/>
-         </route>
-         <route>
-             <from uri="spark-rest:get:count/:suburb" />
-             <to uri="bean:meetingService?method=getMeetingsCount"/>
-         </route>
-         <route>
-             <from uri="spark-rest:get:daysOfTheWeek" />
-             <to uri="bean:daysOfTheWeekService?method=getDaysOfTheWeek"/>
-         </route>
-         <route>
-             <from uri="spark-rest:post:meetings" />
-             <to uri="bean:meetingService?method=createMeeting"/>
-         </route>
+        <!--<to uri="mongodb:mongoBean?database={{mongodb.database}}&amp;collection={{mongodb.collection}}&amp;operation=count&amp;dynamicity=true"/>-->
 
 
-     </camelContext>
+        <route>
+            <from uri="spark-rest:get:meetings"/>
+            <to uri="bean:meetingService?method=getMeetings"/>
+        </route>
+        <route>
+            <from uri="spark-rest:get:meetings/:suburb"/>
+            <to uri="bean:meetingService?method=getMeetings"/>
+        </route>
+        <route>
+            <from uri="spark-rest:get:count"/>
+            <to uri="bean:meetingService?method=getMeetingsCount"/>
+        </route>
+        <route>
+            <from uri="spark-rest:get:count/:suburb"/>
+            <to uri="bean:meetingService?method=getMeetingsCount"/>
+        </route>
+        <route>
+            <from uri="spark-rest:get:daysOfTheWeek"/>
+            <to uri="bean:daysOfTheWeekService?method=getDaysOfTheWeek"/>
+        </route>
+        <route>
+            <from uri="spark-rest:post:meetings"/>
+            <to uri="bean:meetingService?method=createMeeting"/>
+        </route>
+
+
+    </camelContext>
 
 </beans>

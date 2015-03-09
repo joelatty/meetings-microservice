@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 import java.net.UnknownHostException;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
-import java.util.Arrays;
 import java.util.Locale;
 
 import static com.mongodb.util.JSON.serialize;
@@ -35,6 +34,7 @@ public class MeetingService {
     private MongoClient client;
     private String databaseName;
     private String collectionName;
+    private String clientURI;
 
 
     public String getMeetings(@Header("suburb") String suburb) {
@@ -143,10 +143,10 @@ public class MeetingService {
         if (client != null) return client;
         try {
 //            MongoCredential credential = MongoCredential.createMongoCRCredential("tester", "team2media", "drmf5ltd".toCharArray());
-//            MongoClientURI clientURI = new MongoClientURI("mongodb://tester:drmf5ltd@ds045988.mongolab.com:45988/team2media");
 //            ServerAddress address = new ServerAddress("ds045988.mongolab.com", 45988);
 //            client = new MongoClient(address, Arrays.asList(credential));
-            client = new MongoClient();
+            MongoClientURI mongoClientURI = new MongoClientURI(clientURI);
+            client = new MongoClient(mongoClientURI);
         } catch (UnknownHostException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -166,5 +166,9 @@ public class MeetingService {
     public void setCollectionName(String collectionName) {
         LOG.info("Collection: " + collectionName);
         this.collectionName = collectionName;
+    }
+
+    public void setClientURI(String clientURI) {
+        this.clientURI = clientURI;
     }
 }
