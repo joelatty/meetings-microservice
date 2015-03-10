@@ -16,7 +16,9 @@ import org.eclipse.jetty.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.UnknownHostException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -31,20 +33,21 @@ public class MeetingService {
     private static final Logger LOG = LoggerFactory.getLogger(MeetingService.class);
     private static final String SUBURB = "suburb";
 
+    private Mongo mongoConnection;
     private MongoClient client;
     private String databaseName;
     private String collectionName;
     private String clientURI;
 
 
-    public String getMeetings(@Header("suburb") String suburb) {
+    public String getMeetings(@Header("suburb") String suburb) throws UnsupportedEncodingException {
         DBCollection collection = getMeetingCollection();
         DBCursor cursor = null;
         try {
             if (StringUtil.isBlank(suburb)) {
                 cursor = collection.find();
             } else {
-                cursor = collection.find(getDbObject(SUBURB, suburb));
+                cursor = collection.find(getDbObject(SUBURB, decode(suburb)));
             }
 
             return serialize(cursor);
@@ -54,28 +57,32 @@ public class MeetingService {
                 cursor.close();
             }
         }
-     }
+    }
+
+    private String decode(String value) throws UnsupportedEncodingException {
+        return URLDecoder.decode(value, StandardCharsets.UTF_8.name());
+    }
 
 
-    public int getMeetingsCount(@Header("suburb") String suburb) {
+    public int getMeetingsCount(@Header("suburb") String suburb) throws UnsupportedEncodingException {
         DBCollection collection = getMeetingCollection();
-        if(StringUtils.isEmpty(suburb)) {
+        if (StringUtils.isEmpty(suburb)) {
             return collection.find().count();
         }
-        return collection.find(getDbObject(SUBURB, suburb)).count();
+        return collection.find(getDbObject(SUBURB, decode(suburb))).count();
     }
 
     private DBCollection getMeetingCollection() {
-        DB database = getMongoClient().getDB(databaseName);
+        DB database = mongoConnection.getDB(databaseName);
         return database.getCollection(collectionName);
     }
 
     private DBObject getDbObject(String key, String value) {
         return new QueryBuilder()
-                    .start()
-                    .put(key)
-                    .is(value)
-                    .get();
+                .start()
+                .put(key)
+                .is(value)
+                .get();
     }
 
 
@@ -83,8 +90,6 @@ public class MeetingService {
     public Meeting getMeeting(String id) {
         return new Meeting();
     }
-
-
 
 
     // creates a new meeting
@@ -138,22 +143,6 @@ public class MeetingService {
         return new Meeting();
     }
 
-
-    private MongoClient getMongoClient() {
-        if (client != null) return client;
-        try {
-//            MongoCredential credential = MongoCredential.createMongoCRCredential("tester", "team2media", "drmf5ltd".toCharArray());
-//            ServerAddress address = new ServerAddress("ds045988.mongolab.com", 45988);
-//            client = new MongoClient(address, Arrays.asList(credential));
-            MongoClientURI mongoClientURI = new MongoClientURI(clientURI);
-            client = new MongoClient(mongoClientURI);
-        } catch (UnknownHostException e) {
-            throw new RuntimeException(e.getMessage());
-        }
-
-        return client;
-    }
-
     private void closeConnection() {
         client.close();
     }
@@ -168,7 +157,8 @@ public class MeetingService {
         this.collectionName = collectionName;
     }
 
-    public void setClientURI(String clientURI) {
-        this.clientURI = clientURI;
+    public void setMongoConnection(Mongo mongoConnection) {
+        this.mongoConnection = mongoConnection;
     }
+
 }
