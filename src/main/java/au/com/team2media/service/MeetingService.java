@@ -88,7 +88,7 @@ public class MeetingService {
 
 
     // creates a new meeting
-    public Object createMeeting(@Body() String body) {
+    public String createMeeting(@Body() String body) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
@@ -145,8 +145,9 @@ public class MeetingService {
 //            MongoCredential credential = MongoCredential.createMongoCRCredential("tester", "team2media", "drmf5ltd".toCharArray());
 //            ServerAddress address = new ServerAddress("ds045988.mongolab.com", 45988);
 //            client = new MongoClient(address, Arrays.asList(credential));
-            MongoClientURI mongoClientURI = new MongoClientURI(clientURI);
-            client = new MongoClient(mongoClientURI);
+            // MongoClientURI mongoClientURI = new MongoClientURI(clientURI);
+            // client = new MongoClient(mongoClientURI);
+            client = new MongoClient();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e.getMessage());
         }

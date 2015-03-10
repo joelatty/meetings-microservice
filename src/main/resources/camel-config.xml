@@ -23,7 +23,13 @@
          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <bean id="mongoBean" class="com.mongodb.Mongo"/>
+    <bean id="mongoBean" class="com.mongodb.Mongo">
+        <!--constructor-arg index="0">
+            <bean class="com.mongodb.MongoURI">
+                <constructor-arg index="0" value="mongodb://username:password@host:port/db" />
+            </bean>
+        </constructor-arg-->
+    </bean>
 
 
     <!-- a rest service which uses binding to/from pojos -->
@@ -59,7 +65,7 @@
 
         <route>
             <from uri="spark-rest:get:meetings"/>
-            <to uri="bean:meetingService?method=getMeetings"/>
+            <to uri="direct:meetings"/>
         </route>
         <route>
             <from uri="spark-rest:get:meetings/:suburb"/>
@@ -67,7 +73,7 @@
         </route>
         <route>
             <from uri="spark-rest:get:count"/>
-            <to uri="bean:meetingService?method=getMeetingsCount"/>
+            <to uri="direct:meetingsCount"/>
         </route>
         <route>
             <from uri="spark-rest:get:count/:suburb"/>
@@ -81,6 +87,17 @@
             <from uri="spark-rest:post:meetings"/>
             <to uri="bean:meetingService?method=createMeeting"/>
         </route>
+        <route>
+            <from uri="direct:meetings" />
+            <log message="Directed to direct:meetings" />
+            <to uri="mongodb:mongoBean?database={{mongodb.database}}&amp;collection={{mongodb.collection}}&amp;operation=findAll"/>
+        </route>
+        <route>
+            <from uri="direct:meetingsCount" />
+            <log message="Directed to direct:meetingsCount" />
+            <to uri="mongodb:mongoBean?database={{mongodb.database}}&amp;collection={{mongodb.collection}}&amp;operation=count"/>
+        </route>
+
 
 
     </camelContext>
