@@ -23,22 +23,29 @@
          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <bean id="mongoBean" class="com.mongodb.Mongo"/>
-
-
-    <!-- a rest service which uses binding to/from pojos -->
-    <bean id="userRoutes" class="au.com.team2media.routes.MeetingRouteBuilder"/>
-
     <bean id="databaseProperties"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:mongodb.properties"/>
     </bean>
 
+    <bean id="mongoBean" class="com.mongodb.Mongo">
+        <constructor-arg index="0">
+            <bean class="com.mongodb.MongoURI">
+                <constructor-arg index="0" value="${mongodb.clientURI}" />
+            </bean>
+        </constructor-arg>
+    </bean>
+
+
+    <!-- a rest service which uses binding to/from pojos -->
+    <bean id="userRoutes" class="au.com.team2media.routes.MeetingRouteBuilder"/>
+
+
     <!-- a bean for user services -->
     <bean id="meetingService" class="au.com.team2media.service.MeetingService">
         <property name="databaseName" value="${mongodb.database}"/>
         <property name="collectionName" value="${mongodb.collection}"/>
-        <property name="clientURI" value="${mongodb.clientURI}" />
+        <property name="mongoConnection" ref="mongoBean" />
     </bean>
 
     <bean id="daysOfTheWeekService" class="au.com.team2media.service.DaysOfTheWeekService"/>
@@ -59,7 +66,8 @@
 
         <route>
             <from uri="spark-rest:get:meetings"/>
-            <to uri="bean:meetingService?method=getMeetings"/>
+            <to uri="direct:findAll" />
+            <!-- to uri="bean:meetingService?method=getMeetings"/-->
         </route>
         <route>
             <from uri="spark-rest:get:meetings/:suburb"/>
@@ -80,6 +88,11 @@
         <route>
             <from uri="spark-rest:post:meetings"/>
             <to uri="bean:meetingService?method=createMeeting"/>
+        </route>
+        <route>
+            <from uri="direct:findAll" />
+            <log message="Here we are in the find all route" />
+            <to uri="mongodb:mongoBean?database={{mongodb.database}}&amp;collection={{mongodb.collection}}&amp;operation=findAll"/>
         </route>
 
 
