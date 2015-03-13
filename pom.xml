@@ -22,6 +22,7 @@
         <guava-version>18.0</guava-version>
         <camel-version>2.14.1</camel-version>
         <log4j-version>1.2.17</log4j-version>
+        <freemarker-version>2.3.21</freemarker-version>
         <spring-version>4.1.5.RELEASE</spring-version>
     </properties>
 
@@ -76,6 +77,17 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${freemarker-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-freemarker</artifactId>
+            <version>${camel-version}</version>
+            <!-- use the same version as your Camel core version -->
         </dependency>
         <!-- logging -->
         <dependency>

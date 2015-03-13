@@ -8,4 +8,16 @@ package au.com.team2media.model;
  * To change this template use File | Settings | File Templates.
  */
 public class MeetingTest {
+
+    public MeetingBean whatSuburb(Meeting meeting) {
+
+        MeetingBean bean = new MeetingBean();
+        if(meeting.getSuburb().equals("Newtown")) {
+            bean.setArea("Inner West");
+            bean.setType("Speaker");
+        }
+
+        return bean;
+    }
+
 }
