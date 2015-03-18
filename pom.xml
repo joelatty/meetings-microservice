@@ -169,6 +169,11 @@
             <artifactId>camel-spring</artifactId>
             <version>${camel-version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-gson</artifactId>
+            <version>${camel-version}</version>
+        </dependency>
         <!-- we need spring web -->
         <dependency>
             <groupId>org.springframework</groupId>

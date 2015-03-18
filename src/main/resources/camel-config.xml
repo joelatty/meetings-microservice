@@ -61,7 +61,10 @@
         </restConfiguration>
 
 
-        <!--<to uri="mongodb:mongoBean?database={{mongodb.database}}&amp;collection={{mongodb.collection}}&amp;operation=count&amp;dynamicity=true"/>-->
+        <route>
+            <from uri="direct:insert" />
+            <to uri="mongodb:mongoBean?database={{mongodb.database}}&amp;collection={{mongodb.collection}}&amp;operation=insert&amp;writeConcern=SAFE"/>
+        </route>
 
 
         <route>
