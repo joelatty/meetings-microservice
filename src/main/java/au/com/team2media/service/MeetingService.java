@@ -13,8 +13,7 @@ import com.mongodb.util.JSON;
 import org.apache.camel.Body;
 import org.apache.camel.Header;
 import org.apache.commons.lang3.StringUtils;
-import org.bson.BSONObject;
-import org.eclipse.jetty.util.StringUtil;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,10 +23,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
-import org.bson.types.ObjectId;
 
 import static com.mongodb.util.JSON.serialize;
 
@@ -50,7 +45,7 @@ public class MeetingService {
         DBCollection collection = getMeetingCollection();
         DBCursor cursor = null;
         try {
-            if (StringUtil.isBlank(suburb)) {
+            if (StringUtils.isBlank(suburb)) {
                 cursor = collection.find();
             } else {
                 cursor = collection.find(getDbObject(SUBURB, decode(suburb)));
