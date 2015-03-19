@@ -118,7 +118,7 @@ public class MeetingService {
         return serialize(meetingDBObject.get("_id"));
     }
 
-    public Meeting getMeetingFromBody(String body) {
+    public Meeting getMeetingFromBody(@Body() String body) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
@@ -147,17 +147,23 @@ public class MeetingService {
     }
 
     public WriteResult removeMeeting(String body) {
-        LOG.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        LOG.info(body.toString());
-        LOG.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-
-        DBCollection collection = getMeetingCollection();
-//        BasicDBObject query = new BasicDBObject();
-//        query.putAll((BSONObject) new ObjectId(body));
         ObjectId objectId = (ObjectId) JSON.parse(body);
+        return removeMeeting(objectId);
+    }
+
+    public WriteResult removeMeeting(ObjectId objectId) {
+        DBCollection collection = getMeetingCollection();
         BasicDBObject query = new BasicDBObject();
         query.put("_id", objectId);
         return collection.remove(query);
+    }
+
+    public void deleteMeeting(@Body() String id) {
+        ObjectId objectId = new ObjectId(id);
+        DBCollection collection = getMeetingCollection();
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", objectId);
+        collection.remove(query);
     }
 
     private BasicDBObject getMeetingDBObject(Meeting meeting) {

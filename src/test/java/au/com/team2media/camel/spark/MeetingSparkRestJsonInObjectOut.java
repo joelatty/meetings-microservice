@@ -18,6 +18,7 @@ import org.apache.camel.impl.SimpleRegistry;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.RestRegistry;
+import org.bson.types.ObjectId;
 import org.junit.Test;
 
 public class MeetingSparkRestJsonInObjectOut extends BaseSparkTest {
@@ -66,7 +67,7 @@ public class MeetingSparkRestJsonInObjectOut extends BaseSparkTest {
 
                 from("direct:insert").to("bean:meetingService?method=insertMeeting").to("direct:remove");
 
-                from("direct:remove").to("bean:meetingService?method=removeMeeting");
+                from("direct:remove").to("log:Out").convertBodyTo(ObjectId.class).to("bean:meetingService?method=removeMeeting");
             }
         };
     }
