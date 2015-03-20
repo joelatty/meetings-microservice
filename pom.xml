@@ -26,6 +26,7 @@
         <freemarker-version>2.3.21</freemarker-version>
         <spring-version>4.1.5.RELEASE</spring-version>
         <jetty8-version>8.1.16.v20140903</jetty8-version>
+        <easymock-version>3.2</easymock-version>
     </properties>
 
     <dependencies>
@@ -213,6 +214,23 @@
             <scope>test</scope>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>${easymock-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymockclassextension</artifactId>
+            <version>${easymock-version}</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.easymock</groupId>-->
+            <!--<artifactId>easymockclassextension</artifactId>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>
