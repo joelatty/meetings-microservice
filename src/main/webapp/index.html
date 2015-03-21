@@ -1,66 +1,28 @@
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one or more
-    contributor license agreements.  See the NOTICE file distributed with
-    this work for additional information regarding copyright ownership.
-    The ASF licenses this file to You under the Apache License, Version 2.0
-    (the "License"); you may not use this file except in compliance with
-    the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
+<!DOCTYPE html>
 <html>
-
+<head>
+    <meta charset="utf-8">
+    <title>Atmosphere Chat</title>
+    <script type="text/javascript" src="script/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="script/jquery.atmosphere.js"></script>
+    <script type="text/javascript" src="script/atmosphere.js"></script>
+    <script type="text/javascript" src="script/application.js"></script>
+    <style>
+        * {font-family: tahoma; font-size: 12px; padding: 0px; margin: 0px;}
+        p {line-height: 18px;}
+        div {width: 500px; margin-left: auto; margin-right: auto;}
+        #content {padding: 5px; background: #ddd; border-radius: 5px; border: 1px solid #CCC; margin-top: 10px;}
+        #header {padding: 5px; background: #f5deb3; border-radius: 5px; border: 1px solid #CCC; margin-top: 10px;}
+        #input {border-radius: 2px; border: 1px solid #ccc; margin-top: 10px; padding: 5px; width: 400px;}
+        #status {width: 88px; display: block; float: left; margin-top: 15px;}
+    </style>
+</head>
 <body>
-<h2>Spark REST and Apache Tomcat example</h2>
-
-This example shows how to use Spark REST to define REST endpoints in Camel routes using the Java DSL
-
-<br/>
-The routes are defined in Java code, in the <tt>org.apache.camel.example.sparkrest.UserRouteBuilder</tt> class.
-
-<p/>
-There is a <i>user</i> REST service that supports the following operations
- <ul>
-   <li>view/<i>id</i> - to view a user with the given id </li>
-   <li>list - to view all users</li>
-   <li>update - to update/create an user</li>
- </ul>
-
-The view and list operations are HTTP GET, and update is using HTTP PUT.
-
-From a web browser you can access the first two services using the following links
-
-<ul>
-  <li><a href="user/view/123">user/view/123</a> - to view the user with id 123</li>
-  <li><a href="user/list">user/list</a> - to list all users</li>
-</ul>
-
-From the command shell you can use curl to access the service as shown below:
-<pre>
-    curl -X GET -H "Accept: application/json" http://localhost:8080/camel-example-spark-rest-tomcat-{version}/user/view/123
-    curl -X GET -H "Accept: application/json" http://localhost:8080/camel-example-spark-rest-tomcat-{version}/user/list
-    curl -X PUT -d "{ \"id\": 666, \"name\": \"The devil\"}" -H "Accept: application/json" http://localhost:8080/camel-example-spark-rest-tomcat-{version}/user/update
-</pre>
-
-This assume you installed the example by copying the .war as <tt>camel-example-spark-rest-tomcat-VERSION.war</tt>
-, where VERSION is the Camel version such as 2.14.0, into the <b>webapps</b> directory of Apache Tomcat.
-
-<p/>
-If you hit any problems please let us know on the
-<a href="http://camel.apache.org/discussion-forums.html">Camel Forums</a>
-<br/>
-<br/>
-Please help us make Apache Camel better - we appreciate any feedback you may
-have. Enjoy!
-<br/>
-<br/>
-The Camel riders!
+<div id="header"><h3>Atmosphere Chat. Default transport is WebSocket, fallback is long-polling</h3></div>
+<div id="content"></div>
+<div>
+    <span id="status">Connecting...</span>
+    <input type="text" id="input" disabled="disabled"/>
+</div>
 </body>
-
 </html>

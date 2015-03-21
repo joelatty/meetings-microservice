@@ -39,6 +39,17 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+
+    <servlet>
+        <servlet-name>CamelWsServlet</servlet-name>
+        <servlet-class>org.apache.camel.component.atmosphere.websocket.CamelWebSocketServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CamelWsServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
     <!-- to setup spark use the SparkFilter -->
     <filter>
         <filter-name>SparkFilter</filter-name>

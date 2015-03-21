@@ -9,10 +9,11 @@ import au.com.team2media.util.GeoJSONType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mongodb.*;
+import com.mongodb.util.JSON;
 import org.apache.camel.Body;
 import org.apache.camel.Header;
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.jetty.util.StringUtil;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +45,7 @@ public class MeetingService {
         DBCollection collection = getMeetingCollection();
         DBCursor cursor = null;
         try {
-            if (StringUtil.isBlank(suburb)) {
+            if (StringUtils.isBlank(suburb)) {
                 cursor = collection.find();
             } else {
                 cursor = collection.find(getDbObject(SUBURB, decode(suburb)));
@@ -112,13 +113,52 @@ public class MeetingService {
         return serialize(meetingDBObject.get("_id"));
     }
 
-    public Meeting getMeetingFromBody(String body) {
+    public Meeting getMeetingFromBody(@Body() String body) {
+
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
         gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
         gsonBuilder.setDateFormat("dd/MM/yyyy").create();
         Gson gson = gsonBuilder.create();
-        return gson.fromJson(body, Meeting.class);
+        Meeting meeting = gson.fromJson(body, Meeting.class);
+
+        return meeting;
+    }
+
+    public Object insertMeeting(Meeting meeting) {
+        BasicDBObject meetingDBObject = getMeetingDBObject(meeting);
+        Location location = meeting.getLocation();
+        if (location != null) {
+            BasicDBList coordinates = getCoordinates(location);
+            meetingDBObject.append("location", new BasicDBObject("type", GeoJSONType.POINT.getDisplayValue())
+                    .append("coordinates", coordinates));
+        }
+
+        DBCollection collection = getMeetingCollection();
+
+        WriteResult writeResult = collection.insert(meetingDBObject);
+
+        return serialize(meetingDBObject.get("_id"));
+    }
+
+    public WriteResult removeMeeting(String body) {
+        ObjectId objectId = (ObjectId) JSON.parse(body);
+        return removeMeeting(objectId);
+    }
+
+    public WriteResult removeMeeting(ObjectId objectId) {
+        DBCollection collection = getMeetingCollection();
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", objectId);
+        return collection.remove(query);
+    }
+
+    public void deleteMeeting(@Body() String id) {
+        ObjectId objectId = new ObjectId(id);
+        DBCollection collection = getMeetingCollection();
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", objectId);
+        collection.remove(query);
     }
 
     private BasicDBObject getMeetingDBObject(Meeting meeting) {

@@ -1,11 +1,43 @@
 package au.com.team2media.routes;
 
+import au.com.team2media.model.Meeting;
+import com.mongodb.DBCursor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.atmosphere.websocket.WebsocketComponent;
+import org.apache.camel.component.twitter.TwitterComponent;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.model.rest.RestBindingMode;
 
 public class MeetingRouteBuilder extends RouteBuilder {
+
+    private static String consumerKey = "xxxx";
+    private static String consumerSecret = "xxxx";
+    private static String accessToken = "xxxx";
+    private static String accessTokenSecret = "xxxx";
+
+
     @Override
     public void configure() throws Exception {
+
+        // setup Camel web-socket component on the port we have defined
+        WebsocketComponent websocketComponent = getContext().getComponent("atmosphere-websocket", WebsocketComponent.class);
+        websocketComponent.createConfiguration("atmosphere-websocket://services");
+
+
+        // setup Twitter component
+        TwitterComponent twitterComponent = getContext().getComponent("twitter", TwitterComponent.class);
+        twitterComponent.setAccessToken(accessToken);
+        twitterComponent.setAccessTokenSecret(accessTokenSecret);
+        twitterComponent.setConsumerKey(consumerKey);
+        twitterComponent.setConsumerSecret(consumerSecret);
+
+        // poll twitter search for new tweets
+        fromF("twitter://search?keywords=%s", "Sydney")
+                .to("log:tweet")
+                        // and push tweets to all web socket subscribers on camel-tweet
+                .to("atmosphere-websocket:////services");
+
+
         // configure we want to use spark-rest as the component for the rest DSL
         // and we enable json binding mode
 
@@ -22,6 +54,7 @@ public class MeetingRouteBuilder extends RouteBuilder {
 
             .get("all-meetings")
                 .to("bean:meetingService?method=getAllMeetings");
+
 
 
 //                .get("/all")
