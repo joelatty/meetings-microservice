@@ -35,7 +35,8 @@ public class MeetingSparkRestPojoInOutTest extends BaseSparkTest {
 
                 // use the rest DSL to define the rest services
                 rest("/meetings/")
-                        .post("name").type(Meeting.class).outType(MeetingBean.class)
+                        .post("name").type(Meeting.class)
+                        .outType(MeetingBean.class)
                         .route()
                         .bean(new MeetingTest(), "whatSuburb");
             }

@@ -95,12 +95,7 @@ public class MeetingService {
     // creates a new meeting
     public Object createMeeting(@Body() String body) {
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
-        gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
-        gsonBuilder.setDateFormat("dd/MM/yyyy").create();
-        Gson gson = gsonBuilder.create();
-        Meeting meeting = gson.fromJson(body, Meeting.class);
+        Meeting meeting = getMeetingFromBody(body);
 
         BasicDBObject meetingDBObject = getMeetingDBObject(meeting);
         Location location = meeting.getLocation();
@@ -115,6 +110,15 @@ public class MeetingService {
         WriteResult writeResult = collection.insert(meetingDBObject);
 
         return serialize(meetingDBObject.get("_id"));
+    }
+
+    public Meeting getMeetingFromBody(String body) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(DayOfWeek.class, new DayOfWeekTypeAdapter());
+        gsonBuilder.registerTypeAdapter(Location.class, new LocationTypeAdapter());
+        gsonBuilder.setDateFormat("dd/MM/yyyy").create();
+        Gson gson = gsonBuilder.create();
+        return gson.fromJson(body, Meeting.class);
     }
 
     private BasicDBObject getMeetingDBObject(Meeting meeting) {

@@ -1,9 +1,6 @@
 package au.com.team2media.routes;
 
-import au.com.team2media.model.Meeting;
-import com.mongodb.DBCursor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.model.rest.RestBindingMode;
 
 public class MeetingRouteBuilder extends RouteBuilder {
@@ -25,7 +22,6 @@ public class MeetingRouteBuilder extends RouteBuilder {
 
             .get("all-meetings")
                 .to("bean:meetingService?method=getAllMeetings");
-
 
 
 //                .get("/all")

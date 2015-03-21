@@ -48,6 +48,11 @@
         <property name="mongoConnection" ref="mongoBean" />
     </bean>
 
+    <!-- define the gson data format, where we configure the data format using the properties -->
+    <bean id="gson" class="org.apache.camel.component.gson.GsonDataFormat">
+
+    </bean>
+
     <bean id="daysOfTheWeekService" class="au.com.team2media.service.DaysOfTheWeekService"/>
 
     <camelContext xmlns="http://camel.apache.org/schema/spring">
