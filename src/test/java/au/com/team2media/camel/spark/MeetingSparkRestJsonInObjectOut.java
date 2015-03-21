@@ -2,22 +2,11 @@ package au.com.team2media.camel.spark;
 
 import au.com.team2media.model.Meeting;
 import au.com.team2media.service.MeetingService;
-import com.fasterxml.jackson.databind.Module;
 import com.mongodb.Mongo;
 import com.mongodb.MongoURI;
-import org.apache.camel.CamelContext;
-import org.apache.camel.Endpoint;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.mongodb.MongoDbComponent;
-import org.apache.camel.component.sparkrest.SparkComponent;
 import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.impl.PropertyPlaceholderDelegateRegistry;
-import org.apache.camel.impl.SimpleRegistry;
-import org.apache.camel.model.dataformat.JsonLibrary;
-import org.apache.camel.spi.Registry;
-import org.apache.camel.spi.RestRegistry;
 import org.bson.types.ObjectId;
 import org.junit.Test;
 
@@ -49,7 +38,7 @@ public class MeetingSparkRestJsonInObjectOut extends BaseSparkTest {
 
     @Override
     protected RouteBuilder createRouteBuilder() throws Exception {
-        MongoURI mongoURI = new MongoURI("mongodb://localhost:27017/team2media");
+        MongoURI mongoURI = new MongoURI("mongodb://tester:drmf5ltd@ds045988.mongolab.com:45988/team2media");
         Mongo mongo = new Mongo(mongoURI);
         MeetingService service = new MeetingService();
         service.setDatabaseName("team2media");

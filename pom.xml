@@ -25,7 +25,7 @@
         <ahc-version>1.9.8</ahc-version>
         <freemarker-version>2.3.21</freemarker-version>
         <spring-version>4.1.5.RELEASE</spring-version>
-        <jetty8-version>8.1.16.v20140903</jetty8-version>
+        <jetty-version>9.2.2.v20140723</jetty-version>
         <easymock-version>3.2</easymock-version>
     </properties>
 
@@ -41,11 +41,11 @@
             <artifactId>mongo-java-driver</artifactId>
             <version>${mongodb-version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.sparkjava</groupId>
-            <artifactId>spark-core</artifactId>
-            <version>2.0.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.sparkjava</groupId>-->
+            <!--<artifactId>spark-core</artifactId>-->
+            <!--<version>2.0.0</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -152,36 +152,36 @@
             <artifactId>camel-spark-rest</artifactId>
             <version>${camel-version}</version>
             <!-- exclude javax servlet as its already part of the servlet container -->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.jetty.orbit</groupId>
-                    <artifactId>javax.servlet</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-webapp</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-server</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-util</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-servlet</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-io</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-security</artifactId>
-                </exclusion>
-            </exclusions>
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.eclipse.jetty.orbit</groupId>-->
+                    <!--<artifactId>javax.servlet</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.eclipse.jetty</groupId>-->
+                    <!--<artifactId>jetty-webapp</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.eclipse.jetty</groupId>-->
+                    <!--<artifactId>jetty-server</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.eclipse.jetty</groupId>-->
+                    <!--<artifactId>jetty-util</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.eclipse.jetty</groupId>-->
+                    <!--<artifactId>jetty-servlet</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.eclipse.jetty</groupId>-->
+                    <!--<artifactId>jetty-io</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.eclipse.jetty</groupId>-->
+                    <!--<artifactId>jetty-security</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -203,22 +203,38 @@
         <!-- Jetty 8 for testing-->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-continuation</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-servlet</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-server</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-websocket</artifactId>
-            <version>${jetty8-version}</version>
+            <version>8.1.16.v20140903</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlet</artifactId>
-            <version>${jetty8-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>${jetty8-version}</version>
-            <scope>test</scope>
-        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.eclipse.jetty</groupId>-->
+            <!--<artifactId>jetty-servlet</artifactId>-->
+            <!--<version>${jetty-version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.eclipse.jetty</groupId>-->
+            <!--<artifactId>jetty-server</artifactId>-->
+            <!--<version>${jetty-version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
 
 
         <dependency>

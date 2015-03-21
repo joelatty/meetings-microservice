@@ -5,7 +5,7 @@ import org.apache.camel.test.AvailablePortFinder;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.junit.After;
@@ -21,11 +21,13 @@ public class WebsocketCamelRouterTestSupport extends CamelTestSupport {
 
     @Before
     public void setUp() throws Exception {
+
         server = new Server();
-        Connector connector = new SelectChannelConnector();
+
+        ServerConnector connector = new ServerConnector(server);
         connector.setHost("localhost");
         connector.setPort(PORT);
-        server.addConnector(connector);
+        server.setConnectors(new Connector[] {connector});
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
