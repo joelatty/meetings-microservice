@@ -1,20 +1,16 @@
 package au.com.team2media.routes;
 
-import au.com.team2media.model.Meeting;
-import com.mongodb.DBCursor;
+import au.com.team2media.model.TwitterOAuth;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.atmosphere.websocket.WebsocketComponent;
 import org.apache.camel.component.twitter.TwitterComponent;
-import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MeetingRouteBuilder extends RouteBuilder {
 
-    private static String consumerKey = "xxxx";
-    private static String consumerSecret = "xxxx";
-    private static String accessToken = "xxxx";
-    private static String accessTokenSecret = "xxxx";
-
+    @Autowired
+    private TwitterOAuth twitterOAuth;
 
     @Override
     public void configure() throws Exception {
@@ -26,10 +22,10 @@ public class MeetingRouteBuilder extends RouteBuilder {
 
         // setup Twitter component
         TwitterComponent twitterComponent = getContext().getComponent("twitter", TwitterComponent.class);
-        twitterComponent.setAccessToken(accessToken);
-        twitterComponent.setAccessTokenSecret(accessTokenSecret);
-        twitterComponent.setConsumerKey(consumerKey);
-        twitterComponent.setConsumerSecret(consumerSecret);
+        twitterComponent.setAccessToken(twitterOAuth.getAccessToken());
+        twitterComponent.setAccessTokenSecret(twitterOAuth.getAccessTokenSecret());
+        twitterComponent.setConsumerKey(twitterOAuth.getConsumerKey());
+        twitterComponent.setConsumerSecret(twitterOAuth.getConsumerSecret());
 
         // poll twitter search for new tweets
         fromF("twitter://search?keywords=%s", "Sydney")
