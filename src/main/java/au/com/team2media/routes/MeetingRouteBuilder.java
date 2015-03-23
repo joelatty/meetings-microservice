@@ -28,7 +28,7 @@ public class MeetingRouteBuilder extends RouteBuilder {
         twitterComponent.setConsumerSecret(twitterOAuth.getConsumerSecret());
 
         // poll twitter search for new tweets
-        fromF("twitter://search?keywords=%s", "Sydney")
+        fromF("twitter://search?keywords=%s&httpProxyHost=%s&httpProxyPort=%s", "Sydney", "127.0.0.1", "3128")
                 .to("log:tweet")
                         // and push tweets to all web socket subscribers on camel-tweet
                 .to("atmosphere-websocket:////services");
