@@ -4,13 +4,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.junit.Test;
 import spark.Request;
 
-/**
- * Created with IntelliJ IDEA.
- * User: s65721
- * Date: 13/03/15
- * Time: 2:39 PM
- * To change this template use File | Settings | File Templates.
- */
 public class MeetingSparkRequestBeanTest extends BaseSparkTest {
 
     @Test
@@ -21,6 +14,8 @@ public class MeetingSparkRequestBeanTest extends BaseSparkTest {
         assertEquals("Bye big world from camel", out);
 
         assertMockEndpointsSatisfied();
+
+
     }
 
     @Override

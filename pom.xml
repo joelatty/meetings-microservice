@@ -20,7 +20,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <gson-version>2.3.1</gson-version>
         <guava-version>18.0</guava-version>
-        <camel-version>2.14.1</camel-version>
+        <camel-version>2.15.0</camel-version>
         <log4j-version>1.2.17</log4j-version>
         <ahc-version>1.9.8</ahc-version>
         <freemarker-version>2.3.21</freemarker-version>
@@ -109,12 +109,6 @@
             <version>${camel-version}</version>
             <!-- use the same version as your Camel core version -->
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-gson</artifactId>
-            <version>${camel-version}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>

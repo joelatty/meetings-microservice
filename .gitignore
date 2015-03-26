@@ -8,3 +8,5 @@ target/
 
 
 src/main/resources/twitterOAuth.properties
+meetings.iws
+meetings.ipr
